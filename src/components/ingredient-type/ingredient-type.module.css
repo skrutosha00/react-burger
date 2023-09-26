@@ -1,0 +1,5 @@
+.ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 24px;
+}

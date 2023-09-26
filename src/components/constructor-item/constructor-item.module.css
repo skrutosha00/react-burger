@@ -1,0 +1,17 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 8px;
+}
+
+.item.isLocked {
+  padding-left: 32px;
+  padding-right: 16px;
+  justify-content: flex-end;
+}
+
+.constructorElement {
+  max-width: 536px;
+}

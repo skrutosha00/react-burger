@@ -1,0 +1,7 @@
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-height: calc(100vh - 292px);
+  overflow-y: scroll;
+}
