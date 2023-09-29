@@ -1,0 +1,11 @@
+.constructor {
+  max-width: 600px;
+}
+
+.unlockedItems {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: calc(100vh - 548px);
+  overflow-y: scroll;
+}

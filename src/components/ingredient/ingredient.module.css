@@ -1,0 +1,27 @@
+.ingredient {
+  position: relative;
+  width: 270px;
+}
+
+.price {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  text-align: center;
+  min-height: 48px;
+}
+
+.image {
+  display: block;
+  margin: auto;
+}
+
+.counter {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
