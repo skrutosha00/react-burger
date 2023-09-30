@@ -1,6 +1,6 @@
 import styles from "./burger-ingredients.module.css";
-import Tabs from "../tabs/tabs";
-import IngredientType from "../ingredient-type/ingredient-type";
+import Tabs from "components/tabs/tabs";
+import IngredientType from "components/ingredient-type/ingredient-type";
 
 const ingredientTypes = ["bun", "sauce", "main"];
 

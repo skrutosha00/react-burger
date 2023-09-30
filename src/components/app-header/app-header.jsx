@@ -7,10 +7,10 @@ export default function AppHeader() {
     <header className={`${styles.header} pt-4 pb-4`}>
       <div className={styles.innerHeader}>
         <div className={styles.leftHeader}>
-          <nav className={`${styles.headerButton} pt-4 pb-4 pr-5 pl-5 mr-1`}>
+          <a href="#" className={`${styles.headerButton} pt-4 pb-4 pr-5 pl-5 mr-1`}>
             <BurgerIcon type="primary" />
             <span className="text text_type_main-default ml-2">Конструктор</span>
-          </nav>
+          </a>
           <nav className={`${styles.headerButton} pt-4 pb-4 pr-5 pl-5`}>
             <ListIcon type="secondary" />
             <span className="text text_type_main-default text_color_inactive ml-2">Лента заказов</span>

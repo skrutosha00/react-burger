@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import ingredientShape from "../../propTypes/ingredientShape";
 import styles from "./constructor-item.module.css";
+import ingredientShape from "propTypes/ingredientShape";
 
 export default function ConstructorItem({ ingredient, type, isLocked }) {
   return (
@@ -23,7 +23,7 @@ export default function ConstructorItem({ ingredient, type, isLocked }) {
 }
 
 ConstructorItem.propTypes = {
-  ingredient: PropTypes.shape(ingredientShape).isRequired,
+  ingredient: PropTypes.shape(ingredientShape.isRequired).isRequired,
   type: PropTypes.string,
   isLocked: PropTypes.bool
 };

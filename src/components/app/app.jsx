@@ -1,17 +1,33 @@
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import { useContext, useEffect } from "react";
 
 import styles from "./app.module.css";
-import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import AppHeader from "components/app-header/app-header";
+import BurgerConstructor from "components/burger-constructor/burger-constructor";
+import { Context } from "context";
 
 export default function App() {
+  const { data, setData } = useContext(Context);
+
+  useEffect(() => {
+    fetchData();
+
+    async function fetchData() {
+      const response = await fetch(`https://norma.nomoreparties.space/api/ingredients`);
+      const responseJson = await response.json();
+      setData(responseJson.data);
+    }
+  }, []);
+
   return (
     <>
       <AppHeader />
-      <main className={`${styles.main}`}>
-        <BurgerIngredients />
-        <BurgerConstructor />
-      </main>
+      {data.length && (
+        <main className={`${styles.main}`}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </main>
+      )}
     </>
   );
 }
