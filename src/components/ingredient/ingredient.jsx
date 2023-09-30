@@ -4,7 +4,7 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 
 import styles from "./ingredient.module.css";
 import ingredientShape from "propTypes/ingredientShape";
-import IngredientModal from "components/ingredient-modal/ingredient-details";
+import IngredientDetails from "components/ingredient-details/ingredient-details";
 
 export default function Ingredient({ ingredient, count }) {
   const [isModalShown, setIsModalShown] = useState(false);
@@ -15,7 +15,7 @@ export default function Ingredient({ ingredient, count }) {
 
   return (
     <>
-      {isModalShown && <IngredientModal ingredient={ingredient} handler={setIsModalShown} />}
+      {isModalShown && <IngredientDetails ingredient={ingredient} handler={setIsModalShown} />}
       <div className={styles.ingredient} onClick={clickHandler}>
         {count && <Counter count={count} extraClass="counter" />}
         <img className={styles.image} src={ingredient.image} alt="" />
@@ -31,5 +31,6 @@ export default function Ingredient({ ingredient, count }) {
 
 Ingredient.propTypes = {
   ingredient: PropTypes.shape(ingredientShape.isRequired).isRequired,
-  count: PropTypes.number
+  count: PropTypes.number,
+  handler: PropTypes.func
 };

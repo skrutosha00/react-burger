@@ -1,8 +1,8 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
 
 import styles from "./ingredient-type.module.css";
 import Ingredient from "components/ingredient/ingredient";
-import { useContext } from "react";
 import { Context } from "context";
 
 const titles = {

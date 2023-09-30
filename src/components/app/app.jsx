@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 
 import styles from "./app.module.css";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerIngredients from "components/burger-ingredients/burger-ingredients";
 import AppHeader from "components/app-header/app-header";
 import BurgerConstructor from "components/burger-constructor/burger-constructor";
 import { Context } from "context";
