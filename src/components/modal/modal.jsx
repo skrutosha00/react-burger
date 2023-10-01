@@ -8,7 +8,7 @@ import ModalOverlay from "components/modal-overlay/modal-overlay";
 
 const portalTarget = document.querySelector("#modal");
 
-export default function Modal({ children, title = "", handler }) {
+export default function Modal({ children, handler }) {
   useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
 
@@ -32,7 +32,6 @@ export default function Modal({ children, title = "", handler }) {
       {createPortal(
         <>
           <div className={styles.modal}>
-            <div className={`${styles.title} text text_type_main-large`}>{title}</div>
             {children}
             <div className={styles.closeIcon} onClick={closeModal}>
               <CloseIcon />
@@ -48,6 +47,5 @@ export default function Modal({ children, title = "", handler }) {
 
 Modal.propTypes = {
   children: PropTypes.node,
-  title: PropTypes.string,
   handler: PropTypes.func.isRequired
 };

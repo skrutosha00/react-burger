@@ -15,6 +15,10 @@
   text-align: center;
 }
 
+.title {
+  line-height: 40px;
+}
+
 .info {
   display: flex;
   align-items: center;

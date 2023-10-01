@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
 import styles from "./burger-constructor.module.css";
 import ConstructorItem from "components/constructor-item/constructor-item";
@@ -7,8 +7,8 @@ import { Context } from "context";
 
 export default function BurgerConstructor() {
   const { data } = useContext(Context);
-  const bun = data.find((ingredient) => ingredient.type === "bun");
-  const ingredientList = data.filter((ingredient) => ingredient.type !== "bun");
+  const bun = useMemo(() => data.find((ingredient) => ingredient.type === "bun"), data);
+  const ingredientList = useMemo(() => data.filter((ingredient) => ingredient.type !== "bun"), data);
 
   return (
     <section className={`${styles.constructor} pt-25 pl-4`}>

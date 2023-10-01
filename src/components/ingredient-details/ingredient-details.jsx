@@ -5,9 +5,10 @@ import Modal from "components/modal/modal";
 import ingredientShape from "propTypes/ingredientShape";
 import IngredientModalInfo from "components/ingredient-details-info/ingredient-details-info";
 
-export default function IngredientDetails({ ingredient, handler }) {
+export default function IngredientDetails({ ingredient }) {
   return (
-    <Modal title="Детали ингредиента" handler={handler}>
+    <>
+      <div className={`${styles.title} text text_type_main-large`}>Детали ингредиента</div>
       <div className={`${styles.imageCont} mb-4`}>
         <img src={ingredient.image_large} alt="" className={`${styles.image}`} />
       </div>
@@ -18,11 +19,10 @@ export default function IngredientDetails({ ingredient, handler }) {
         <IngredientModalInfo title="Жиры, г" value={ingredient.fat} />
         <IngredientModalInfo title="Углеводы, г" value={ingredient.carbohydrates} />
       </div>
-    </Modal>
+    </>
   );
 }
 
 IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape(ingredientShape.isRequired).isRequired,
-  handler: PropTypes.func.isRequired
+  ingredient: PropTypes.shape(ingredientShape.isRequired).isRequired
 };
