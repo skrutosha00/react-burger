@@ -7,7 +7,7 @@ import IngredientModalInfo from "components/ingredient-details-info/ingredient-d
 
 export default function IngredientDetails({ ingredient }) {
   return (
-    <>
+    <section>
       <div className={`${styles.title} text text_type_main-large`}>Детали ингредиента</div>
       <div className={`${styles.imageCont} mb-4`}>
         <img src={ingredient.image_large} alt="" className={`${styles.image}`} />
@@ -19,7 +19,7 @@ export default function IngredientDetails({ ingredient }) {
         <IngredientModalInfo title="Жиры, г" value={ingredient.fat} />
         <IngredientModalInfo title="Углеводы, г" value={ingredient.carbohydrates} />
       </div>
-    </>
+    </section>
   );
 }
 
