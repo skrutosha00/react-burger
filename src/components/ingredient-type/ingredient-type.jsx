@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
 
-import data from "../../utils/data.json";
-import Ingredient from "../ingredient/ingredient";
 import styles from "./ingredient-type.module.css";
+import Ingredient from "components/ingredient/ingredient";
+import { Context } from "context";
 
 const titles = {
   bun: "Булки",
@@ -11,6 +12,7 @@ const titles = {
 };
 
 export default function IngredientType({ type }) {
+  const { data } = useContext(Context);
   const ingredientList = data.filter((ingredient) => ingredient.type === type);
 
   return (
