@@ -1,6 +1,6 @@
-export default async function fetchJson(url) {
+export default async function fetchJson(url, options = {}) {
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, options);
     if (!response.ok) {
       throwError();
       return;
@@ -13,6 +13,6 @@ export default async function fetchJson(url) {
 }
 
 function throwError(err = "") {
-  const errorMessage = "fetchJson failed " + err;
+  const errorMessage = "fetchJson failed; " + err;
   throw new Error(errorMessage);
 }

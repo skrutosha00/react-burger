@@ -2,6 +2,10 @@
   max-width: 600px;
 }
 
+.ingredients {
+  min-height: calc(100vh - 356px);
+}
+
 .unlockedItems {
   display: flex;
   flex-direction: column;

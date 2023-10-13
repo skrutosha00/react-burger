@@ -8,7 +8,7 @@ import ModalOverlay from "components/modal-overlay/modal-overlay";
 
 const portalTarget = document.querySelector("#modal");
 
-export default function Modal({ children, handler }) {
+export default function Modal({ children, close }) {
   useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
 
@@ -18,14 +18,10 @@ export default function Modal({ children, handler }) {
 
     function handleKeyPress(event) {
       if (event.key === "Escape") {
-        closeModal();
+        close();
       }
     }
   }, []);
-
-  function closeModal() {
-    handler(false);
-  }
 
   return (
     <>
@@ -33,11 +29,11 @@ export default function Modal({ children, handler }) {
         <>
           <div className={styles.modal}>
             {children}
-            <div className={styles.closeIcon} onClick={closeModal}>
+            <div className={styles.closeIcon} onClick={close}>
               <CloseIcon />
             </div>
           </div>
-          <ModalOverlay clickHandler={closeModal} />
+          <ModalOverlay clickHandler={close} />
         </>,
         portalTarget
       )}
@@ -47,5 +43,5 @@ export default function Modal({ children, handler }) {
 
 Modal.propTypes = {
   children: PropTypes.node,
-  handler: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired
 };

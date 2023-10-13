@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 import styles from "./order-details.module.css";
 import okImage from "images/order-ok.svg";
 import Modal from "components/modal/modal";
+import { useSelector } from "react-redux";
 
-export default function OrderDetails({ handler }) {
+export default function OrderDetails({ close }) {
+  const orderNumber = useSelector((store) => store.order.orderNumber);
+
   return (
-    <Modal handler={handler}>
-      <div className={`${styles.orderId} text text_type_digits-large mt-10`}>034789</div>
+    <Modal close={close}>
+      <div className={`${styles.orderId} text text_type_digits-large mt-10`}>{orderNumber}</div>
       <div className="text text_type_main-medium mt-8">идентификатор заказа</div>
 
       <div className={`${styles.okImageCont} mt-15`}>
@@ -23,5 +26,5 @@ export default function OrderDetails({ handler }) {
 }
 
 OrderDetails.propTypes = {
-  handler: PropTypes.func
+  close: PropTypes.func
 };

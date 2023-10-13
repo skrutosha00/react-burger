@@ -1,9 +1,10 @@
-import { useContext } from "react";
 import PropTypes from "prop-types";
+import { useInView } from "react-intersection-observer";
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./ingredient-type.module.css";
 import Ingredient from "components/ingredient/ingredient";
-import { Context } from "context";
+import { UPDATE_SECTION_VISABILITY } from "services/actions/ingredients";
 
 const titles = {
   bun: "Булки",
@@ -12,12 +13,20 @@ const titles = {
 };
 
 export default function IngredientType({ type }) {
-  const { data } = useContext(Context);
-  const ingredientList = data.filter((ingredient) => ingredient.type === type);
+  const dispatch = useDispatch();
+  const { ingredients } = useSelector((store) => store.ingredients);
+  const ingredientList = ingredients.filter((ingredient) => ingredient.type === type);
+
+  const { ref } = useInView({
+    threshold: 0.1,
+    onChange: (inView) => {
+      dispatch({ type: UPDATE_SECTION_VISABILITY, ingredientType: type, intersect: inView });
+    }
+  });
 
   return (
-    <section>
-      <h4 className={`text text_type_main-medium mb-6`} id={type + "Tab"}>
+    <section ref={ref} id={type + "Section"}>
+      <h4 className={`text text_type_main-medium mb-6`} id={type}>
         {titles[type]}
       </h4>
       <div className={`${styles.ingredients}`}>
