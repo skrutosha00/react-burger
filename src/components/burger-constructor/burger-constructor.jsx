@@ -4,7 +4,7 @@ import { useDrop } from "react-dnd/dist/hooks";
 import { nanoid } from "nanoid";
 
 import styles from "./burger-constructor.module.css";
-import { ADD_CONSTRUCTOR_INGREDIENT } from "services/actions/constructorIngredients";
+import { addConstructorIngredient } from "services/actions/constructorIngredients";
 import { dragTypes } from "utils/globalVars";
 import ConstructorItem from "components/constructor-item/constructor-item";
 import OrderSection from "components/order-section/order-section";
@@ -19,10 +19,7 @@ export default function BurgerConstructor() {
     accept: dragTypes.INGREDIENT,
     collect: (monitor) => ({ isOver: !!monitor.isOver() }),
     drop(item) {
-      dispatch({
-        type: ADD_CONSTRUCTOR_INGREDIENT,
-        ingredient: { ...item, uid: nanoid() }
-      });
+      dispatch(addConstructorIngredient({ ...item, uid: nanoid() }));
     }
   }));
 
@@ -35,7 +32,11 @@ export default function BurgerConstructor() {
       <div className={styles.ingredients} ref={ref} style={style}>
         {!!ingredients.length && (
           <>
-            <div className="mb-4">{bun && <ConstructorItem ingredient={bun} isLocked={true} type="top" />}</div>
+            {bun && (
+              <div className="mb-4">
+                <ConstructorItem ingredient={bun} isLocked={true} type="top" />
+              </div>
+            )}
             <ul className={`${styles.unlockedItems} custom-scroll`}>
               {ingredientList.map((ingredient, index) => (
                 <li key={ingredient.uid}>
@@ -43,7 +44,11 @@ export default function BurgerConstructor() {
                 </li>
               ))}
             </ul>
-            <div className="mt-4">{bun && <ConstructorItem ingredient={bun} isLocked={true} type="bottom" />}</div>
+            {bun && (
+              <div className="mt-4">
+                <ConstructorItem ingredient={bun} isLocked={true} type="bottom" />
+              </div>
+            )}
           </>
         )}
       </div>

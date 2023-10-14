@@ -6,7 +6,7 @@ import Modal from "components/modal/modal";
 import { useSelector } from "react-redux";
 
 export default function OrderDetails({ close }) {
-  const orderNumber = useSelector((store) => store.order.orderNumber);
+  const { orderNumber } = useSelector((store) => store.order);
 
   return (
     <Modal close={close}>
@@ -14,7 +14,7 @@ export default function OrderDetails({ close }) {
       <div className="text text_type_main-medium mt-8">идентификатор заказа</div>
 
       <div className={`${styles.okImageCont} mt-15`}>
-        <img src={okImage} alt="" className={`${styles.okImage}`} />
+        <img src={okImage} alt="tick" className={`${styles.okImage}`} />
       </div>
 
       <div className="text text_type_main-default mt-15">Ваш заказ начали готовить</div>

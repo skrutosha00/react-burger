@@ -1,5 +1,6 @@
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
+  CLEAR_CONSTRUCTOR_INGREDIENTS,
   DELETE_CONSTRUCTOR_INGREDIENT,
   MOVE_CONSTRUCTOR_INGREDIENT
 } from "services/actions/constructorIngredients";
@@ -16,9 +17,11 @@ export default function constructorIngredientsReducer(state = initialState, acti
       }
       return [...sortablePart, action.ingredient, ...bunPart];
     }
+
     case DELETE_CONSTRUCTOR_INGREDIENT: {
       return state.filter((ingredient) => ingredient.uid !== action.ingredient.uid);
     }
+
     case MOVE_CONSTRUCTOR_INGREDIENT: {
       const ingredients = [...state];
       const draggedIngredient = ingredients[action.dragIndex];
@@ -26,6 +29,11 @@ export default function constructorIngredientsReducer(state = initialState, acti
       ingredients.splice(action.hoverIndex, 0, draggedIngredient);
       return ingredients;
     }
+
+    case CLEAR_CONSTRUCTOR_INGREDIENTS: {
+      return initialState;
+    }
+
     default:
       return state;
   }

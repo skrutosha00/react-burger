@@ -6,12 +6,19 @@ import { useDrag, useDrop } from "react-dnd";
 
 import styles from "./constructor-item.module.css";
 import constructorIngredientShape from "propTypes/constructorIngredientShape";
-import { DELETE_CONSTRUCTOR_INGREDIENT, MOVE_CONSTRUCTOR_INGREDIENT } from "services/actions/constructorIngredients";
+import { deleteConstructorIngredient, moveConstructorIngredient } from "services/actions/constructorIngredients";
 import { dragTypes } from "utils/globalVars";
 
 export default function ConstructorItem({ ingredient, type, isLocked, index }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
+
+  let name = ingredient.name;
+  if (type === "top") {
+    name += " (верх)";
+  } else if (type === "bottom") {
+    name += " (низ)";
+  }
 
   const [, drop] = useDrop({
     accept: dragTypes.CONSTRUCTOR_INGREDIENT,
@@ -41,7 +48,7 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }) {
         return;
       }
 
-      dispatch({ type: MOVE_CONSTRUCTOR_INGREDIENT, dragIndex, hoverIndex });
+      dispatch(moveConstructorIngredient(dragIndex, hoverIndex));
       item.index = hoverIndex;
     }
   });
@@ -61,10 +68,7 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }) {
   drag(drop(ref));
 
   function handleClose() {
-    dispatch({
-      type: DELETE_CONSTRUCTOR_INGREDIENT,
-      ingredient
-    });
+    dispatch(deleteConstructorIngredient(ingredient));
   }
 
   return (
@@ -75,7 +79,7 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }) {
         isLocked={isLocked}
         price={ingredient.price}
         thumbnail={ingredient.image}
-        text={ingredient.name}
+        text={name}
         handleClose={handleClose}
         type={type}
         extraClass={styles.constructorElement}

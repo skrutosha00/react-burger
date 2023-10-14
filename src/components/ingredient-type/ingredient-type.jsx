@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./ingredient-type.module.css";
 import Ingredient from "components/ingredient/ingredient";
-import { UPDATE_SECTION_VISABILITY } from "services/actions/ingredients";
+import { updateSectionVisability } from "services/actions/ingredients";
 
 const titles = {
   bun: "Булки",
@@ -20,7 +20,7 @@ export default function IngredientType({ type }) {
   const { ref } = useInView({
     threshold: 0.1,
     onChange: (inView) => {
-      dispatch({ type: UPDATE_SECTION_VISABILITY, ingredientType: type, intersect: inView });
+      dispatch(updateSectionVisability(type, inView));
     }
   });
 

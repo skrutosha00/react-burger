@@ -3,28 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./tabs.module.css";
-import { SWITCH_TAB } from "services/actions/ingredients";
+import { switchTab } from "services/actions/ingredients";
+import { INGREDIENT_TYPES } from "utils/globalVars";
 
 export default function Tabs() {
   const { currentTab, visibleSections } = useSelector((store) => store.ingredients);
   const dispatch = useDispatch();
 
   function handleClick(tab) {
-    dispatch({
-      type: SWITCH_TAB,
-      tab
-    });
+    dispatch(switchTab(tab));
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   }
 
   useEffect(() => {
-    for (let type of ["bun", "sauce", "main"]) {
+    for (let type of INGREDIENT_TYPES) {
       if (visibleSections[type]) {
-        dispatch({
-          type: SWITCH_TAB,
-          tab: type
-        });
+        dispatch(switchTab(type));
         return;
       }
     }

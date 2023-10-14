@@ -10,17 +10,17 @@ const portalTarget = document.querySelector("#modal");
 
 export default function Modal({ children, close }) {
   useEffect(() => {
-    document.addEventListener("keydown", handleKeyPress);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyPress);
-    };
-
     function handleKeyPress(event) {
       if (event.key === "Escape") {
         close();
       }
     }
+
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
   }, []);
 
   return (
