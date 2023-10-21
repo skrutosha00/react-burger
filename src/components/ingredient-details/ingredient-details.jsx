@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 import styles from "./ingredient-details.module.css";
-import Modal from "components/modal/modal";
-import ingredientShape from "propTypes/ingredientShape";
 import IngredientModalInfo from "components/ingredient-details-info/ingredient-details-info";
 
-export default function IngredientDetails({ ingredient }) {
+export default function IngredientDetails() {
+  const ingredient = useSelector((store) => store.currentIngredient);
+
   return (
     <section>
       <div className={`${styles.title} text text_type_main-large`}>Детали ингредиента</div>
@@ -22,7 +22,3 @@ export default function IngredientDetails({ ingredient }) {
     </section>
   );
 }
-
-IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape(ingredientShape.isRequired).isRequired
-};
