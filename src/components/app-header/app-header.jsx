@@ -33,9 +33,11 @@ export default function AppHeader() {
           </Link>
         </div>
 
-        <div className={styles.logo}>
-          <Logo />
-        </div>
+        <Link to={"/"}>
+          <div className={styles.logo}>
+            <Logo />
+          </div>
+        </Link>
 
         <Link to="/profile">
           <nav className={`${styles.headerButton} pt-4 pb-4 pr-5 pl-5`}>

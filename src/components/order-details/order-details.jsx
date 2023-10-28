@@ -14,7 +14,7 @@ export default function OrderDetails({ close }) {
         {orderNumber ? (
           <div className={`${styles.orderId} text text_type_digits-large `}>{orderNumber}</div>
         ) : (
-          <div className={`${styles.loading} text text_type_main-large`}>Загрузка</div>
+          <div className={`${styles.loading} text text_type_main-large`}>Загрузка...</div>
         )}
       </div>
       <div className="text text_type_main-medium mt-8">идентификатор заказа</div>

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, EmailInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -14,11 +14,13 @@ export default function LoginPage() {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
   const { loginRequest } = useSelector((store) => store.login);
+  const { state } = useLocation();
 
   const isSubmitButtonActive = isFormCompleted && !loginRequest;
+  const fromLocation = state?.from || "/";
 
   if (user) {
-    navigate(-1, { replace: true });
+    navigate(fromLocation, { replace: true });
   }
 
   function onSubmit(e) {

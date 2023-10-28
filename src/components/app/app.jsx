@@ -5,7 +5,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { init } from "services/actions";
 import { getIngredients } from "services/actions/ingredients";
 import useAutoLogin from "hooks/useAutoLogin";
-import ProtectedRouteElement from "components/protected-route-element/protected-route-element";
+import ProtectedRoute from "components/protected-route-element/protected-route-element";
 import IngredientModal from "components/ingredient-modal/ingredient-modal";
 import MainPage from "pages/main/main";
 import LoginPage from "pages/login/login";
@@ -35,11 +35,46 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
           <Route path="/ingredients/:id" element={<IngredientsPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} path="/profile" />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoute anonymousOnly={true}>
+                <LoginPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <ProtectedRoute anonymousOnly={true}>
+                <RegisterPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/forgot-password"
+            element={
+              <ProtectedRoute anonymousOnly={true}>
+                <ForgotPasswordPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              <ProtectedRoute anonymousOnly={true}>
+                <ResetPasswordPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<NoMatchPage />} />
         </Route>
       </Routes>
