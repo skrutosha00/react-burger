@@ -7,9 +7,11 @@ import styles from "./ingredient.module.css";
 import ingredientShape from "propTypes/ingredientShape";
 import { setCurrentIngredient } from "services/actions/currentIngredient";
 import { dragTypes } from "utils/globalVars";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Ingredient({ ingredient }) {
   const constructorIngredients = useSelector((store) => store.constructorIngredients);
+  const location = useLocation();
   const dispatch = useDispatch();
 
   const [, ref] = useDrag(() => ({
@@ -26,7 +28,7 @@ export default function Ingredient({ ingredient }) {
   }
 
   return (
-    <>
+    <Link to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }}>
       <div className={styles.ingredient} onClick={handleClick} ref={ref}>
         {!!count && <Counter count={count} extraClass="counter" />}
         <img className={styles.image} src={ingredient.image} alt={ingredient.name} />
@@ -36,7 +38,7 @@ export default function Ingredient({ ingredient }) {
         </div>
         <div className={`${styles.name} text text_type_main-small`}>{ingredient.name}</div>
       </div>
-    </>
+    </Link>
   );
 }
 

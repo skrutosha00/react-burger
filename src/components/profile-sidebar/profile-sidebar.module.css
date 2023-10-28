@@ -1,0 +1,14 @@
+.nav {
+  width: 320px;
+  height: 64px;
+  line-height: 64px;
+}
+
+.footerText {
+  width: 320px;
+  color: var(--text-dark-grey-secondary-text, #8585ad);
+}
+
+.logout {
+  cursor: pointer;
+}

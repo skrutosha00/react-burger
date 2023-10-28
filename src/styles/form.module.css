@@ -1,0 +1,21 @@
+.formCont {
+  margin: 90px auto auto;
+  width: 480px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.button {
+  display: block;
+  margin: auto auto 80px;
+}
+
+.linkText {
+  text-align: center;
+}
+
+.link {
+  padding: 0;
+}

@@ -1,0 +1,17 @@
+.main {
+  position: relative;
+  width: min-content;
+  margin: auto;
+}
+
+.sidebar {
+  position: absolute;
+  left: -60px;
+  transform: translateX(-100%);
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}

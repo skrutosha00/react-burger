@@ -10,7 +10,13 @@ export default function OrderDetails({ close }) {
 
   return (
     <Modal close={close}>
-      <div className={`${styles.orderId} text text_type_digits-large mt-10`}>{orderNumber}</div>
+      <div className={`${styles.title} mt-10`}>
+        {orderNumber ? (
+          <div className={`${styles.orderId} text text_type_digits-large `}>{orderNumber}</div>
+        ) : (
+          <div className={`${styles.loading} text text_type_main-large`}>Загрузка</div>
+        )}
+      </div>
       <div className="text text_type_main-medium mt-8">идентификатор заказа</div>
 
       <div className={`${styles.okImageCont} mt-15`}>

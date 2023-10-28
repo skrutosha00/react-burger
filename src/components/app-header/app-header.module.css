@@ -21,6 +21,10 @@
   align-items: center;
 }
 
+.text_color_inactive {
+  color: white !important;
+}
+
 .logo {
   position: absolute;
   left: 50%;

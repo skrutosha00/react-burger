@@ -7,6 +7,7 @@ import "index.css";
 import "styles/reset.css";
 import rootReducer from "services/reducers";
 import App from "components/app/app";
+import { BrowserRouter } from "react-router-dom";
 
 const composeEnhancers: any =
   typeof window === "object" && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -20,6 +21,8 @@ const store = createStore(rootReducer, enhancer);
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>
 );

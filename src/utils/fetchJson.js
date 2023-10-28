@@ -1,11 +1,13 @@
 export default async function fetchJson(url, options = {}) {
   try {
     const response = await fetch(url, options);
+    const responseJson = await response.json();
+
     if (!response.ok) {
-      throwError();
+      throwError(responseJson?.message);
       return;
     }
-    const responseJson = await response.json();
+
     return responseJson;
   } catch (err) {
     throwError(err);

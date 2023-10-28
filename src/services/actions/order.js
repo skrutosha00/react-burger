@@ -32,6 +32,7 @@ export function getOrder(requestBody) {
       const response = await fetchJson(ORDER_URL, {
         method: "POST",
         headers: {
+          authorization: localStorage.getItem("accessToken"),
           "Content-Type": "application/json;charset=utf-8"
         },
         body: requestBody
