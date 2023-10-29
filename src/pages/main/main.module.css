@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1240px;
+  margin: auto;
+}
+
+.main > * {
+  width: 600px;
+}
