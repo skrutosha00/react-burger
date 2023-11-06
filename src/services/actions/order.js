@@ -1,5 +1,5 @@
 import fetchJson from "utils/fetchJson";
-import { ORDER_URL } from "utils/globalVars";
+import { ORDER_URL } from "services/globalVars";
 import { clearConstructorIngredients } from "services/actions/constructorIngredients";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";

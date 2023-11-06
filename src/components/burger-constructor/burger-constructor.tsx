@@ -1,29 +1,31 @@
-import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { CSSProperties, useMemo } from "react";
 import { useDrop } from "react-dnd/dist/hooks";
 import { nanoid } from "nanoid";
+import { ConnectDropTarget } from "react-dnd";
 
 import styles from "./burger-constructor.module.css";
+import { TConstructorIngredient, TIngredient } from "services/types";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import { addConstructorIngredient } from "services/actions/constructorIngredients";
-import { dragTypes } from "utils/globalVars";
+import { dragTypes } from "services/globalVars";
 import ConstructorItem from "components/constructor-item/constructor-item";
 import OrderSection from "components/order-section/order-section";
 
 export default function BurgerConstructor() {
-  const dispatch = useDispatch();
-  const ingredients = useSelector((store) => store.constructorIngredients);
+  const dispatch = useAppDispatch();
+  const ingredients: TConstructorIngredient[] = useAppSelector((store) => store.constructorIngredients);
   const bun = useMemo(() => ingredients.find((ingredient) => ingredient.type === "bun"), [ingredients]);
   const ingredientList = useMemo(() => ingredients.filter((ingredient) => ingredient.type !== "bun"), [ingredients]);
 
-  const [{ isOver }, ref] = useDrop(() => ({
+  const [{ isOver }, ref]: [any, ConnectDropTarget] = useDrop<TIngredient>(() => ({
     accept: dragTypes.INGREDIENT,
     collect: (monitor) => ({ isOver: !!monitor.isOver() }),
-    drop(item) {
+    drop(item: TIngredient) {
       dispatch(addConstructorIngredient({ ...item, uid: nanoid() }));
     }
   }));
 
-  const style = {
+  const style: CSSProperties = {
     boxShadow: isOver ? "1px 1px yellow, -1px -1px yellow" : "unset"
   };
 

@@ -1,5 +1,5 @@
 import fetchJson from "utils/fetchJson";
-import { TOKEN_URL } from "utils/globalVars";
+import { TOKEN_URL } from "services/globalVars";
 
 export const TOKEN_REQUEST = "TOKEN_REQUEST";
 export const TOKEN_SUCCESS = "TOKEN_SUCCESS";

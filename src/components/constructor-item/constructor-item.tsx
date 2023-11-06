@@ -1,17 +1,23 @@
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 
+import { useAppDispatch } from "hooks/reduxHooks";
 import styles from "./constructor-item.module.css";
-import constructorIngredientShape from "propTypes/constructorIngredientShape";
 import { deleteConstructorIngredient, moveConstructorIngredient } from "services/actions/constructorIngredients";
-import { dragTypes } from "utils/globalVars";
+import { dragTypes } from "services/globalVars";
+import { TConstructorIngredient } from "services/types";
 
-export default function ConstructorItem({ ingredient, type, isLocked, index }) {
-  const ref = useRef(null);
-  const dispatch = useDispatch();
+type TProps = {
+  ingredient: TConstructorIngredient;
+  type?: "top" | "bottom";
+  isLocked?: boolean;
+  index?: number;
+};
+
+export default function ConstructorItem({ ingredient, type, isLocked, index }: TProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
   let name = ingredient.name;
   if (type === "top") {
@@ -20,10 +26,10 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }) {
     name += " (низ)";
   }
 
-  const [, drop] = useDrop({
+  const [, drop] = useDrop<{ index: number }>({
     accept: dragTypes.CONSTRUCTOR_INGREDIENT,
     hover(item, monitor) {
-      if (!ref.current || ingredient.type === "bun") {
+      if (!ref.current || ingredient.type === "bun" || index === undefined) {
         return;
       }
       const dragIndex = item.index;
@@ -38,6 +44,10 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }) {
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
       const clientOffset = monitor.getClientOffset();
+
+      if (!clientOffset) {
+        return;
+      }
 
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
@@ -73,7 +83,7 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }) {
 
   return (
     <div ref={ref} style={style} className={`${styles.item} ${isLocked ? styles.isLocked : ""}`}>
-      {!isLocked && <DragIcon />}
+      {!isLocked && <DragIcon type="primary" />}
 
       <ConstructorElement
         isLocked={isLocked}
@@ -87,10 +97,3 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }) {
     </div>
   );
 }
-
-ConstructorItem.propTypes = {
-  ingredient: PropTypes.shape(constructorIngredientShape.isRequired).isRequired,
-  type: PropTypes.string,
-  isLocked: PropTypes.bool,
-  index: PropTypes.number
-};

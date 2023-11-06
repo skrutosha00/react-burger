@@ -1,16 +1,17 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import styles from "./ingredients.module.css";
 import IngredientDetails from "components/ingredient-details/ingredient-details";
 import { useEffect } from "react";
 import { setCurrentIngredient } from "services/actions/currentIngredient";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
+import { TIngredient } from "services/types";
 
 export default function IngredientPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams();
-  const { ingredients } = useSelector((store) => store.ingredients);
-  const currentIngredient = useSelector((store) => store.currentIngredient);
+  const { ingredients }: { ingredients: TIngredient[] } = useAppSelector((store) => store.ingredients);
+  const currentIngredient = useAppSelector((store) => store.currentIngredient);
 
   const ingredient = ingredients.find((ingredient) => ingredient._id === id);
 
@@ -20,7 +21,7 @@ export default function IngredientPage() {
   }, [ingredients]);
 
   if (!ingredients.length || !currentIngredient) {
-    return;
+    return <></>;
   }
 
   return (

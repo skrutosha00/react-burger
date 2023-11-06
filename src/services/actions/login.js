@@ -1,5 +1,5 @@
 import fetchJson from "utils/fetchJson";
-import { LOGIN_URL } from "utils/globalVars";
+import { LOGIN_URL } from "services/globalVars";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";

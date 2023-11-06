@@ -1,4 +1,4 @@
-export default async function fetchJson(url, options = {}) {
+export default async function fetchJson(url: string, options = {}) {
   try {
     const response = await fetch(url, options);
     const responseJson = await response.json();
@@ -10,7 +10,7 @@ export default async function fetchJson(url, options = {}) {
 
     return responseJson;
   } catch (err) {
-    throwError(err);
+    throwError((err as Error).message);
   }
 }
 

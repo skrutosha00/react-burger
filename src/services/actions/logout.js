@@ -1,5 +1,5 @@
 import fetchJson from "utils/fetchJson";
-import { LOGOUT_URL } from "utils/globalVars";
+import { LOGOUT_URL } from "services/globalVars";
 
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";

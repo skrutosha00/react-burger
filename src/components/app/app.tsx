@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 
+import { TLocation, TLocationState } from "services/types";
+import { useAppDispatch } from "hooks/reduxHooks";
 import { init } from "services/actions";
 import { getIngredients } from "services/actions/ingredients";
 import useAutoLogin from "hooks/useAutoLogin";
@@ -18,9 +19,9 @@ import Layout from "pages/layout/layout";
 import IngredientsPage from "pages/ingredients/ingredients";
 
 export default function App() {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const state = location.state;
+  const dispatch = useAppDispatch();
+  const location: TLocation = useLocation();
+  const state: TLocationState = location.state;
 
   useAutoLogin();
 

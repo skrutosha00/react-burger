@@ -7,9 +7,9 @@ import { UPDATE_USER_SUCCESS } from "services/actions/updateUser";
 import { GET_USER_SUCCESS } from "services/actions/user";
 
 const initialState = {
-  accessToken: null,
+  user: null,
   refreshToken: null,
-  user: null
+  accessToken: null
 };
 
 export default function authReducer(state = initialState, action) {

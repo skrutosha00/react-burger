@@ -1,8 +1,11 @@
-import PropTypes from "prop-types";
-
 import styles from "./ingredient-details-info.module.css";
 
-export default function IngredientDetailsInfo({ title, value }) {
+type TProps = {
+  title: string;
+  value: string | number;
+};
+
+export default function IngredientDetailsInfo({ title, value }: TProps) {
   return (
     <div className={`${styles.infoBlock}`}>
       <div>{title}</div>
@@ -10,8 +13,3 @@ export default function IngredientDetailsInfo({ title, value }) {
     </div>
   );
 }
-
-IngredientDetailsInfo.propTypes = {
-  title: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired
-};

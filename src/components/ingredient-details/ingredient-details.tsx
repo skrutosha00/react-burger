@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
-
 import styles from "./ingredient-details.module.css";
 import IngredientModalInfo from "components/ingredient-details-info/ingredient-details-info";
+import { useAppSelector } from "hooks/reduxHooks";
+import { TIngredient } from "services/types";
 
 export default function IngredientDetails() {
-  const ingredient = useSelector((store) => store.currentIngredient);
+  const ingredient: TIngredient = useAppSelector((store) => store.currentIngredient);
 
   return (
     <>

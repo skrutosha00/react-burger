@@ -1,5 +1,5 @@
 import fetchJson from "utils/fetchJson";
-import { USER_URL } from "utils/globalVars";
+import { USER_URL } from "services/globalVars";
 
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";

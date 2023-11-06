@@ -1,28 +1,42 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { EmailInput, Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState, useEffect, FocusEvent, MouseEvent, ChangeEvent, FormEventHandler } from "react";
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./profile.module.css";
 import formStyles from "styles/form.module.css";
 import ProfileSidebar from "components/profile-sidebar/profile-sidebar";
 import { updateUser } from "services/actions/updateUser";
 import { getToken } from "services/actions/token";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
+
+type TFormField = {
+  isActive: boolean;
+  value: string;
+};
+
+type TForm = {
+  name: TFormField;
+  email: TFormField;
+  password: TFormField;
+};
 
 const footerText = "В этом разделе вы можете просмотреть свою историю заказов";
 
 export default function ProfilePage() {
-  const dispatch = useDispatch();
-  const { user, accessToken, refreshToken } = useSelector((store) => store.auth);
-  const { updateUserRequest, updateUserFailed } = useSelector((store) => store.updateUser);
+  const dispatch = useAppDispatch();
+  const { user, accessToken, refreshToken } = useAppSelector((store) => store.auth);
+  const { updateUserRequest, updateUserFailed } = useAppSelector((store) => store.updateUser);
 
-  const initialFormState = {
+  const initialFormState: TForm = {
     name: { value: user.name, isActive: false },
     email: { value: user.email, isActive: false },
     password: { value: "", isActive: false }
   };
-  const [formState, setFormState] = useState(initialFormState);
+  const [formState, setFormState] = useState<TForm>(initialFormState);
 
-  const formChanged = Object.keys(formState).some((key) => initialFormState[key].value !== formState[key].value);
+  const formChanged = Object.keys(formState).some((key) => {
+    const field = key as keyof TForm;
+    return initialFormState[field].value !== formState[field].value;
+  });
   const isButtonActive = formChanged && !updateUserRequest;
 
   useEffect(() => {
@@ -35,13 +49,14 @@ export default function ProfilePage() {
     dispatch(getToken(JSON.stringify({ token: refreshToken })));
   }, [updateUserFailed]);
 
-  function onIconClick(e) {
-    const inputElem = e.target.closest(".input").querySelector("input");
+  function onIconClick(e: MouseEvent<HTMLDivElement>) {
+    const iconElem = e.target as HTMLDivElement;
+    const inputElem = iconElem?.closest(".input")?.querySelector("input") as HTMLInputElement;
 
     setFormState({
       ...formState,
       [inputElem.name]: {
-        ...formState[inputElem.name],
+        ...formState[inputElem.name as keyof TForm],
         isActive: true
       }
     });
@@ -51,25 +66,25 @@ export default function ProfilePage() {
     }, 0);
   }
 
-  function onBlur(e) {
+  function onBlur(e: FocusEvent<HTMLInputElement, Element>) {
     const inputElem = e.target;
 
     setFormState({
       ...formState,
       [inputElem.name]: {
-        ...formState[inputElem.name],
+        ...formState[inputElem.name as keyof TForm],
         isActive: false
       }
     });
   }
 
-  function onChange(e) {
+  function onChange(e: ChangeEvent<HTMLInputElement>) {
     const inputElem = e.target;
 
     setFormState({
       ...formState,
       [inputElem.name]: {
-        ...formState[inputElem.name],
+        ...formState[inputElem.name as keyof TForm],
         value: inputElem.value
       }
     });
@@ -91,10 +106,10 @@ export default function ProfilePage() {
     );
   }
 
-  function onSubmit(e) {
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     submitForm();
-  }
+  };
 
   return (
     <main className={styles.main}>
@@ -111,7 +126,7 @@ export default function ProfilePage() {
           disabled={!formState.name.isActive}
           extraClass="mb-6"
         />
-        <EmailInput
+        <Input
           placeholder="Логин"
           value={formState.email.value}
           name="email"

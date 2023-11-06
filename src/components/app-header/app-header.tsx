@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./app-header.module.css";
-import { useSelector } from "react-redux";
 import useActiveHeaderNav from "hooks/useActiveHeaderNav";
+import { useAppSelector } from "hooks/reduxHooks";
 
 export default function AppHeader() {
-  const { user } = useSelector((store) => store.auth);
+  const { user } = useAppSelector((store) => store.auth);
   const title = user ? user.name : "Личный кабинет";
   const activeNav = useActiveHeaderNav();
 
