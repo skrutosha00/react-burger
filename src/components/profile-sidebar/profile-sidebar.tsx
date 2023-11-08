@@ -1,15 +1,20 @@
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "./profile-sidebar.module.css";
 import { logout } from "services/actions/logout";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 
-export default function ProfileSidebar({ activeIndex, footerText, extraClass = "" }) {
-  const dispatch = useDispatch();
-  const { refreshToken } = useSelector((store) => store.auth);
-  const { logoutRequest } = useSelector((store) => store.logout);
+type TProps = {
+  activeIndex: number;
+  footerText: string;
+  extraClass: string;
+};
+
+export default function ProfileSidebar({ activeIndex, footerText, extraClass = "" }: TProps) {
+  const dispatch = useAppDispatch();
+  const { refreshToken } = useAppSelector((store) => store.auth);
+  const { logoutRequest } = useAppSelector((store) => store.logout);
   const [logoutLinkIsHovered, setLogoutLinkIsHovered] = useState(false);
 
   function onLogoutClick() {
@@ -48,9 +53,3 @@ export default function ProfileSidebar({ activeIndex, footerText, extraClass = "
     </aside>
   );
 }
-
-ProfileSidebar.propTypes = {
-  activeIndex: PropTypes.number.isRequired,
-  footerText: PropTypes.string,
-  extraClass: PropTypes.string
-};

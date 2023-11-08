@@ -1,5 +1,5 @@
 import fetchJson from "utils/fetchJson";
-import { INGREDIENTS_URL } from "utils/globalVars";
+import { INGREDIENTS_URL } from "services/globalVars";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";

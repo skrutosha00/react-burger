@@ -1,5 +1,5 @@
 import fetchJson from "utils/fetchJson";
-import { REGISTER_URL } from "utils/globalVars";
+import { REGISTER_URL } from "services/globalVars";
 
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";

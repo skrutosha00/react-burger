@@ -1,5 +1,5 @@
 import fetchJson from "utils/fetchJson";
-import { USER_URL } from "utils/globalVars";
+import { USER_URL } from "services/globalVars";
 
 export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";

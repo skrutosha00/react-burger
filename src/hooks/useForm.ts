@@ -1,18 +1,29 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import fetchJson from "utils/fetchJson";
 
-export default function useForm(formFields) {
+type TForm = { [key: string]: string };
+
+type TSubmitParams = {
+  event: FormEvent;
+  url: string;
+  body: { [key: string]: string };
+  toLink?: string;
+};
+
+export default function useForm(formFields: string[]) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isFormPending, setIsFormPending] = useState(false);
-  const [formState, setFormState] = useState(formFields.reduce((state, field) => ({ ...state, [field]: "" }), {}));
+  const [formState, setFormState] = useState<TForm>(
+    formFields.reduce((state, field) => ({ ...state, [field]: "" }), {})
+  );
   const navigate = useNavigate();
 
   const isFormCompleted = Object.values(formState).every((value) => value !== "");
   const isSubmitButtonActive = isFormCompleted && !isFormPending;
 
-  function onChange(e) {
+  function onChange(e: ChangeEvent<HTMLInputElement>) {
     setFormState({
       ...formState,
       [e.target.name]: e.target.value
@@ -23,7 +34,7 @@ export default function useForm(formFields) {
     setIsPasswordVisible(!isPasswordVisible);
   }
 
-  async function submitHandler({ event, url, body, toLink }) {
+  async function submitHandler({ event, url, body, toLink }: TSubmitParams) {
     event.preventDefault();
 
     try {
@@ -41,7 +52,7 @@ export default function useForm(formFields) {
       }
     } catch (err) {
       setIsFormPending(false);
-      console.log(err);
+      console.log((err as Error)?.message);
     }
   }
 

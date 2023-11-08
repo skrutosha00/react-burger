@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
 import { useInView } from "react-intersection-observer";
-import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./ingredient-type.module.css";
 import Ingredient from "components/ingredient/ingredient";
 import { updateSectionVisability } from "services/actions/ingredients";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
+import { TIngredient, TIngredientType } from "services/types";
 
 const titles = {
   bun: "Булки",
@@ -12,9 +12,9 @@ const titles = {
   main: "Начинки"
 };
 
-export default function IngredientType({ type }) {
-  const dispatch = useDispatch();
-  const { ingredients } = useSelector((store) => store.ingredients);
+export default function IngredientType({ type }: { type: TIngredientType }) {
+  const dispatch = useAppDispatch();
+  const { ingredients }: { ingredients: TIngredient[] } = useAppSelector((store) => store.ingredients);
   const ingredientList = ingredients.filter((ingredient) => ingredient.type === type);
 
   const { ref } = useInView({
@@ -31,13 +31,9 @@ export default function IngredientType({ type }) {
       </h4>
       <div className={`${styles.ingredients}`}>
         {ingredientList.map((ingredient) => (
-          <Ingredient ingredient={ingredient} key={ingredient._id} count={ingredient.price === 1255 ? 1 : undefined} />
+          <Ingredient ingredient={ingredient} key={ingredient._id} />
         ))}
       </div>
     </section>
   );
 }
-
-IngredientType.propTypes = {
-  type: PropTypes.string.isRequired
-};

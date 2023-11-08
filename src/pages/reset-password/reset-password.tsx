@@ -1,19 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { PASSWORD_RESET_URL } from "utils/globalVars";
+import { PASSWORD_RESET_URL } from "services/globalVars";
 import styles from "styles/form.module.css";
 import useForm from "hooks/useForm";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
 
 const formFields = ["password", "code"];
 
 export default function ResetPasswordPage() {
-  const { user } = useSelector((store) => store.auth);
   const { isPasswordVisible, changePasswordVisability, formState, onChange, submitHandler, isSubmitButtonActive } =
     useForm(formFields);
-  const navigate = useNavigate();
 
   const submitOptions = {
     url: PASSWORD_RESET_URL,
@@ -23,12 +19,6 @@ export default function ResetPasswordPage() {
       password: formState.password
     }
   };
-
-  useEffect(() => {
-    if (user) {
-      navigate("/", { replace: true });
-    }
-  }, [user]);
 
   return (
     <form

@@ -1,28 +1,22 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { FormEventHandler } from "react";
+import { Link } from "react-router-dom";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "styles/form.module.css";
 import useForm from "hooks/useForm";
 import { register } from "services/actions/register";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 
 const formFields = ["name", "email", "password"];
 
 export default function RegisterPage() {
   const { isPasswordVisible, changePasswordVisability, formState, onChange, isFormCompleted } = useForm(formFields);
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { user } = useSelector((store) => store.auth);
-  const { registerRequest } = useSelector((store) => store.register);
+  const dispatch = useAppDispatch();
+  const { registerRequest } = useAppSelector((store) => store.register);
 
   const isSubmitButtonActive = isFormCompleted && !registerRequest;
 
-  if (user) {
-    navigate("/");
-  }
-
-  function onSubmit(e) {
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
     dispatch(
@@ -34,7 +28,7 @@ export default function RegisterPage() {
         })
       )
     );
-  }
+  };
 
   return (
     <form onSubmit={onSubmit} className={styles.formCont}>

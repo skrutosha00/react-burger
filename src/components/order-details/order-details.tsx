@@ -1,12 +1,10 @@
-import PropTypes from "prop-types";
-
 import styles from "./order-details.module.css";
 import okImage from "images/order-ok.svg";
 import Modal from "components/modal/modal";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks/reduxHooks";
 
-export default function OrderDetails({ close }) {
-  const { orderNumber } = useSelector((store) => store.order);
+export default function OrderDetails({ close }: { close: () => void }) {
+  const { orderNumber } = useAppSelector((store) => store.order);
 
   return (
     <Modal close={close}>
@@ -30,7 +28,3 @@ export default function OrderDetails({ close }) {
     </Modal>
   );
 }
-
-OrderDetails.propTypes = {
-  close: PropTypes.func
-};

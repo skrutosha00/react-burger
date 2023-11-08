@@ -1,9 +1,8 @@
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { PASSWORD_FORGOT_URL } from "utils/globalVars";
+import { PASSWORD_FORGOT_URL } from "services/globalVars";
 import styles from "styles/form.module.css";
 import useForm from "hooks/useForm";
 
@@ -11,8 +10,6 @@ const formFields = ["email"];
 
 export default function ForgotPasswordPage() {
   const { formState, onChange, submitHandler, isSubmitButtonActive } = useForm(formFields);
-  const { user } = useSelector((store) => store.auth);
-  const navigate = useNavigate();
 
   const submitOptions = {
     url: PASSWORD_FORGOT_URL,
@@ -20,16 +17,10 @@ export default function ForgotPasswordPage() {
     body: { email: formState.email }
   };
 
-  useEffect(() => {
-    if (user) {
-      navigate("/", { replace: true });
-    }
-  }, [user]);
-
   return (
     <form
       className={styles.formCont}
-      onSubmit={(event) => {
+      onSubmit={(event: FormEvent<HTMLFormElement>) => {
         submitHandler({ event, ...submitOptions });
       }}>
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>

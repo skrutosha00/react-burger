@@ -1,16 +1,18 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./tabs.module.css";
 import { switchTab } from "services/actions/ingredients";
-import { INGREDIENT_TYPES } from "utils/globalVars";
+import { INGREDIENT_TYPES } from "services/globalVars";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
+
+type TStoreProps = { currentTab: string; visibleSections: { [key: string]: boolean } };
 
 export default function Tabs() {
-  const { currentTab, visibleSections } = useSelector((store) => store.ingredients);
-  const dispatch = useDispatch();
+  const { currentTab, visibleSections }: TStoreProps = useAppSelector((store) => store.ingredients);
+  const dispatch = useAppDispatch();
 
-  function handleClick(tab) {
+  function handleClick(tab: string) {
     dispatch(switchTab(tab));
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });

@@ -1,16 +1,20 @@
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
-import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./modal.module.css";
 import ModalOverlay from "components/modal-overlay/modal-overlay";
 
-const portalTarget = document.querySelector("#modal");
+const portalTarget = document.querySelector("#modal") as HTMLDivElement;
 
-export default function Modal({ children, close }) {
+type TProps = {
+  children: ReactNode;
+  close: () => void;
+};
+
+export default function Modal({ children, close }: TProps) {
   useEffect(() => {
-    function handleKeyPress(event) {
+    function handleKeyPress(event: KeyboardEvent) {
       if (event.key === "Escape") {
         close();
       }
@@ -30,7 +34,7 @@ export default function Modal({ children, close }) {
           <div className={styles.modal}>
             {children}
             <div className={styles.closeIcon} onClick={close}>
-              <CloseIcon />
+              <CloseIcon type="primary" />
             </div>
           </div>
           <ModalOverlay clickHandler={close} />
@@ -40,8 +44,3 @@ export default function Modal({ children, close }) {
     </>
   );
 }
-
-Modal.propTypes = {
-  children: PropTypes.node,
-  close: PropTypes.func.isRequired
-};

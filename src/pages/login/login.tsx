@@ -1,29 +1,22 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { Button, EmailInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "styles/form.module.css";
 import useForm from "hooks/useForm";
 import { login } from "services/actions/login";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 
 const formFields = ["email", "password"];
 
 export default function LoginPage() {
   const { isPasswordVisible, changePasswordVisability, formState, onChange, isFormCompleted } = useForm(formFields);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { user } = useSelector((store) => store.auth);
-  const { loginRequest } = useSelector((store) => store.login);
-  const { state } = useLocation();
+  const dispatch = useAppDispatch();
+  const { loginRequest } = useAppSelector((store) => store.login);
 
   const isSubmitButtonActive = isFormCompleted && !loginRequest;
-  const fromLocation = state?.from || "/";
 
-  if (user) {
-    navigate(fromLocation, { replace: true });
-  }
-
-  function onSubmit(e) {
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     dispatch(
@@ -39,14 +32,7 @@ export default function LoginPage() {
   return (
     <form className={styles.formCont} onSubmit={onSubmit}>
       <h1 className="text text_type_main-medium mb-6">Вход</h1>
-      <EmailInput
-        type="email"
-        placeholder="E-mail"
-        onChange={onChange}
-        value={formState.email}
-        name="email"
-        extraClass="mb-6"
-      />
+      <EmailInput placeholder="E-mail" onChange={onChange} value={formState.email} name="email" extraClass="mb-6" />
       <Input
         type={isPasswordVisible ? "text" : "password"}
         placeholder="Пароль"
