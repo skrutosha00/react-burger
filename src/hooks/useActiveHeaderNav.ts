@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { TLocation } from "services/types";
+import { TLocation } from "services/types/appTypes";
 
 type TActiveNavByPath = {
   [key: string]: number;
@@ -7,8 +7,8 @@ type TActiveNavByPath = {
 
 const defaultActiveNav = 0;
 const activeNavByPath: TActiveNavByPath = {
-  "/orders": 1,
-  "/profile": 2
+  "/feed": 1,
+  "/profile": 2,
 };
 
 export default function useActiveHeaderNav(): number {

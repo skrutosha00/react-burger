@@ -1,8 +1,17 @@
-import { useState, useEffect, FocusEvent, MouseEvent, ChangeEvent, FormEventHandler } from "react";
-import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  useState,
+  useEffect,
+  FocusEvent,
+  MouseEvent,
+  ChangeEvent,
+  FormEventHandler,
+} from "react";
+import {
+  Input,
+  Button,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./profile.module.css";
-import formStyles from "styles/form.module.css";
 import ProfileSidebar from "components/profile-sidebar/profile-sidebar";
 import { updateUser } from "services/actions/updateUser";
 import { getToken } from "services/actions/token";
@@ -19,17 +28,21 @@ type TForm = {
   password: TFormField;
 };
 
-const footerText = "В этом разделе вы можете просмотреть свою историю заказов";
+const footerText = "В этом разделе вы можете изменить свои персональные данные";
 
 export default function ProfilePage() {
   const dispatch = useAppDispatch();
-  const { user, accessToken, refreshToken } = useAppSelector((store) => store.auth);
-  const { updateUserRequest, updateUserFailed } = useAppSelector((store) => store.updateUser);
+  const { user, accessToken, refreshToken } = useAppSelector(
+    (store) => store.auth
+  );
+  const { updateUserRequest, updateUserFailed } = useAppSelector(
+    (store) => store.updateUser
+  );
 
   const initialFormState: TForm = {
-    name: { value: user.name, isActive: false },
-    email: { value: user.email, isActive: false },
-    password: { value: "", isActive: false }
+    name: { value: user!.name, isActive: false },
+    email: { value: user!.email, isActive: false },
+    password: { value: "", isActive: false },
   };
   const [formState, setFormState] = useState<TForm>(initialFormState);
 
@@ -51,14 +64,16 @@ export default function ProfilePage() {
 
   function onIconClick(e: MouseEvent<HTMLDivElement>) {
     const iconElem = e.target as HTMLDivElement;
-    const inputElem = iconElem?.closest(".input")?.querySelector("input") as HTMLInputElement;
+    const inputElem = iconElem
+      ?.closest(".input")
+      ?.querySelector("input") as HTMLInputElement;
 
     setFormState({
       ...formState,
       [inputElem.name]: {
         ...formState[inputElem.name as keyof TForm],
-        isActive: true
-      }
+        isActive: true,
+      },
     });
 
     setTimeout(() => {
@@ -73,8 +88,8 @@ export default function ProfilePage() {
       ...formState,
       [inputElem.name]: {
         ...formState[inputElem.name as keyof TForm],
-        isActive: false
-      }
+        isActive: false,
+      },
     });
   }
 
@@ -85,8 +100,8 @@ export default function ProfilePage() {
       ...formState,
       [inputElem.name]: {
         ...formState[inputElem.name as keyof TForm],
-        value: inputElem.value
-      }
+        value: inputElem.value,
+      },
     });
   }
 
@@ -100,7 +115,7 @@ export default function ProfilePage() {
         JSON.stringify({
           name: formState.name.value,
           email: formState.email.value,
-          password: formState.password.value
+          password: formState.password.value,
         })
       )
     );
@@ -113,8 +128,12 @@ export default function ProfilePage() {
 
   return (
     <main className={styles.main}>
-      <ProfileSidebar activeIndex={0} footerText={footerText} extraClass={styles.sidebar} />
-      <form onSubmit={onSubmit} className={formStyles.formCont}>
+      <ProfileSidebar
+        activeIndex={0}
+        footerText={footerText}
+        extraClass={styles.sidebar}
+      />
+      <form onSubmit={onSubmit} className={""}>
         <Input
           placeholder="Имя"
           value={formState.name.value}

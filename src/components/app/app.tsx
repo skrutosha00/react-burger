@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import { TLocation, TLocationState } from "services/types";
-import { useAppDispatch } from "hooks/reduxHooks";
+import { TLocation, TLocationState } from "services/types/appTypes";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import { init } from "services/actions";
 import { getIngredients } from "services/actions/ingredients";
 import useAutoLogin from "hooks/useAutoLogin";
@@ -17,9 +17,15 @@ import ProfilePage from "pages/profile/profile";
 import NoMatchPage from "pages/no-match/no-match";
 import Layout from "pages/layout/layout";
 import IngredientsPage from "pages/ingredients/ingredients";
+import { FeedPage } from "pages/feed/feed";
+import OrderCardPage from "pages/order-card/order-card";
+import { wsOrdersAllStart } from "services/actions/ordersAll";
+import ProfileOrdersPage from "pages/profile-orders/profile-orders";
+import { wsProfileOrdersStart } from "services/actions/profileOrders";
 
 export default function App() {
   const dispatch = useAppDispatch();
+  const { accessToken } = useAppSelector((store) => store.auth);
   const location: TLocation = useLocation();
   const state: TLocationState = location.state;
 
@@ -28,7 +34,13 @@ export default function App() {
   useEffect(() => {
     dispatch(init());
     dispatch(getIngredients());
+    dispatch(wsOrdersAllStart());
   }, []);
+
+  useEffect(() => {
+    if (!accessToken) return;
+    dispatch(wsProfileOrdersStart());
+  }, [accessToken]);
 
   return (
     <>
@@ -76,6 +88,24 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/profile/orders"
+            element={
+              <ProtectedRoute>
+                <ProfileOrdersPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <ProtectedRoute>
+                <OrderCardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/feed" element={<FeedPage />} />
+          <Route path="/feed/:id" element={<OrderCardPage />} />
           <Route path="*" element={<NoMatchPage />} />
         </Route>
       </Routes>

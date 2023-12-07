@@ -1,0 +1,27 @@
+.main {
+  max-width: 1240px;
+  margin: 40px auto auto;
+}
+
+.header {
+  text-align: left;
+}
+
+.sections {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 600px;
+  height: calc(100vh - 200px);
+  overflow-y: scroll;
+}
+
+.orderCard {
+  width: 584px;
+}

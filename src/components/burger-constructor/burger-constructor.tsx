@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import { ConnectDropTarget } from "react-dnd";
 
 import styles from "./burger-constructor.module.css";
-import { TConstructorIngredient, TIngredient } from "services/types";
+import { TConstructorIngredient, TIngredient } from "services/types/appTypes";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import { addConstructorIngredient } from "services/actions/constructorIngredients";
 import { dragTypes } from "services/globalVars";
@@ -13,20 +13,30 @@ import OrderSection from "components/order-section/order-section";
 
 export default function BurgerConstructor() {
   const dispatch = useAppDispatch();
-  const ingredients: TConstructorIngredient[] = useAppSelector((store) => store.constructorIngredients);
-  const bun = useMemo(() => ingredients.find((ingredient) => ingredient.type === "bun"), [ingredients]);
-  const ingredientList = useMemo(() => ingredients.filter((ingredient) => ingredient.type !== "bun"), [ingredients]);
+  const ingredients: TConstructorIngredient[] = useAppSelector(
+    (store) => store.constructorIngredients
+  );
+  const bun = useMemo(
+    () => ingredients.find((ingredient) => ingredient.type === "bun"),
+    [ingredients]
+  );
+  const ingredientList = useMemo(
+    () => ingredients.filter((ingredient) => ingredient.type !== "bun"),
+    [ingredients]
+  );
 
-  const [{ isOver }, ref]: [any, ConnectDropTarget] = useDrop<TIngredient>(() => ({
-    accept: dragTypes.INGREDIENT,
-    collect: (monitor) => ({ isOver: !!monitor.isOver() }),
-    drop(item: TIngredient) {
-      dispatch(addConstructorIngredient({ ...item, uid: nanoid() }));
-    }
-  }));
+  const [{ isOver }, ref]: [any, ConnectDropTarget] = useDrop<TIngredient>(
+    () => ({
+      accept: dragTypes.INGREDIENT,
+      collect: (monitor) => ({ isOver: !!monitor.isOver() }),
+      drop(item: TIngredient) {
+        dispatch(addConstructorIngredient({ ...item, uid: nanoid() }));
+      },
+    })
+  );
 
   const style: CSSProperties = {
-    boxShadow: isOver ? "1px 1px yellow, -1px -1px yellow" : "unset"
+    boxShadow: isOver ? "1px 1px yellow, -1px -1px yellow" : "unset",
   };
 
   return (
@@ -42,13 +52,21 @@ export default function BurgerConstructor() {
             <ul className={`${styles.unlockedItems} custom-scroll`}>
               {ingredientList.map((ingredient, index) => (
                 <li key={ingredient.uid}>
-                  <ConstructorItem ingredient={ingredient} index={index} isLocked={false} />
+                  <ConstructorItem
+                    ingredient={ingredient}
+                    index={index}
+                    isLocked={false}
+                  />
                 </li>
               ))}
             </ul>
             {bun && (
               <div className="mt-4">
-                <ConstructorItem ingredient={bun} isLocked={true} type="bottom" />
+                <ConstructorItem
+                  ingredient={bun}
+                  isLocked={true}
+                  type="bottom"
+                />
               </div>
             )}
           </>

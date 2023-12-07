@@ -1,17 +1,17 @@
 .main {
-  position: relative;
-  width: min-content;
-  margin: auto;
-}
-
-.sidebar {
-  position: absolute;
-  left: -60px;
-  transform: translateX(-100%);
+  display: flex;
+  width: 1280px;
+  max-width: 100%;
+  margin: 100px auto auto;
+  gap: 60px;
 }
 
 .buttons {
   display: flex;
   justify-content: flex-end;
   gap: 20px;
+}
+
+.sidebar {
+  margin-left: 20px;
 }
