@@ -4,9 +4,11 @@ export const WS_PROFILE_ORDERS_ERROR = "WS_PROFILE_ORDERS_ERROR";
 export const WS_PROFILE_ORDERS_GET_MESSAGE = "WS_PROFILE_ORDERS_GET_MESSAGE";
 export const WS_PROFILE_ORDERS_CLOSED = "WS_PROFILE_ORDERS_CLOSED";
 export const WS_PROFILE_ORDERS_SEND = "WS_PROFILE_ORDERS_SEND";
+export const WS_PROFILE_ORDERS_CLOSE = "WS_PROFILE_ORDERS_CLOSE";
 
 export type TWsProfileOrdersStartAction = {
   type: typeof WS_PROFILE_ORDERS_START;
+  url: string;
 };
 
 export type TWsProfileOrdersSuccessAction = {
@@ -34,17 +36,23 @@ export type TWsProfileOrdersSendAction = {
   payload: Object;
 };
 
+export type TWsProfileOrdersCloseAction = {
+  type: typeof WS_PROFILE_ORDERS_CLOSE;
+};
+
 export type TWsProfileOrdersAction =
   | TWsProfileOrdersStartAction
   | TWsProfileOrdersSuccessAction
   | TWsProfileOrdersErrorAction
   | TWsProfileOrdersGetMessageAction
   | TWsProfileOrdersClosedAction
-  | TWsProfileOrdersSendAction;
+  | TWsProfileOrdersSendAction
+  | TWsProfileOrdersCloseAction;
 
-export function wsProfileOrdersStart(): TWsProfileOrdersStartAction {
+export function wsProfileOrdersStart(url: string): TWsProfileOrdersStartAction {
   return {
     type: WS_PROFILE_ORDERS_START,
+    url,
   };
 }
 
@@ -81,5 +89,11 @@ export function wsProfileOrdersClosed(
   return {
     type: WS_PROFILE_ORDERS_CLOSED,
     payload,
+  };
+}
+
+export function wsProfileOrdersClose(): TWsProfileOrdersCloseAction {
+  return {
+    type: WS_PROFILE_ORDERS_CLOSE,
   };
 }

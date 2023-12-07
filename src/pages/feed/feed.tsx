@@ -1,12 +1,24 @@
+import { useEffect } from "react";
 import { nanoid } from "nanoid";
 
-import { useAppSelector } from "hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import styles from "./feed.module.css";
 import OrderCard from "components/order-card/order-card";
 import OrderNumbers from "components/order-numbers/order-numbers";
+import { wsOrdersAllClose, wsOrdersAllStart } from "services/actions/ordersAll";
+import { ORDERS_All_URL } from "services/globalVars";
 
-export function FeedPage() {
+export default function FeedPage() {
   const { orders } = useAppSelector((store) => store.ordersAll);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(wsOrdersAllStart(ORDERS_All_URL));
+
+    return () => {
+      dispatch(wsOrdersAllClose());
+    };
+  }, []);
 
   return (
     <main className={styles.main}>
@@ -18,7 +30,7 @@ export function FeedPage() {
           {orders.map((order) => (
             <OrderCard
               order={order}
-              toLink={`/feed/${order._id}`}
+              toLink={`/feed/${order.number}`}
               extraClass={styles.orderCard}
               key={nanoid()}
             />

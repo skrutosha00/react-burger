@@ -4,8 +4,8 @@ import thunk from "redux-thunk";
 
 import rootReducer from "services/reducers";
 import { socketMiddleware } from "./middleware/socketMiddleware";
-import { ORDERS_All_URL, PROFILE_ORDERS_URL } from "./globalVars";
 import {
+  WS_ORDERS_ALL_CLOSE,
   WS_ORDERS_ALL_CLOSED,
   WS_ORDERS_ALL_ERROR,
   WS_ORDERS_ALL_GET_MESSAGE,
@@ -14,6 +14,7 @@ import {
   WS_ORDERS_ALL_SUCCESS,
 } from "services/actions/ordersAll";
 import {
+  WS_PROFILE_ORDERS_CLOSE,
   WS_PROFILE_ORDERS_CLOSED,
   WS_PROFILE_ORDERS_ERROR,
   WS_PROFILE_ORDERS_GET_MESSAGE,
@@ -25,23 +26,25 @@ import {
 const enhancers = [
   applyMiddleware(thunk),
   applyMiddleware(
-    socketMiddleware(ORDERS_All_URL, {
+    socketMiddleware({
       startAction: WS_ORDERS_ALL_START,
       successAction: WS_ORDERS_ALL_SUCCESS,
       errorAction: WS_ORDERS_ALL_ERROR,
       messageAction: WS_ORDERS_ALL_GET_MESSAGE,
       closedAction: WS_ORDERS_ALL_CLOSED,
       sendAction: WS_ORDERS_ALL_SEND,
+      closeAction: WS_ORDERS_ALL_CLOSE,
     })
   ),
   applyMiddleware(
-    socketMiddleware(PROFILE_ORDERS_URL, {
+    socketMiddleware({
       startAction: WS_PROFILE_ORDERS_START,
       successAction: WS_PROFILE_ORDERS_SUCCESS,
       errorAction: WS_PROFILE_ORDERS_ERROR,
       messageAction: WS_PROFILE_ORDERS_GET_MESSAGE,
       closedAction: WS_PROFILE_ORDERS_CLOSED,
       sendAction: WS_PROFILE_ORDERS_SEND,
+      closeAction: WS_PROFILE_ORDERS_CLOSE,
     })
   ),
 ];

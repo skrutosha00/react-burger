@@ -17,15 +17,12 @@ import ProfilePage from "pages/profile/profile";
 import NoMatchPage from "pages/no-match/no-match";
 import Layout from "pages/layout/layout";
 import IngredientsPage from "pages/ingredients/ingredients";
-import { FeedPage } from "pages/feed/feed";
+import FeedPage from "pages/feed/feed";
 import OrderCardPage from "pages/order-card/order-card";
-import { wsOrdersAllStart } from "services/actions/ordersAll";
 import ProfileOrdersPage from "pages/profile-orders/profile-orders";
-import { wsProfileOrdersStart } from "services/actions/profileOrders";
 
 export default function App() {
   const dispatch = useAppDispatch();
-  const { accessToken } = useAppSelector((store) => store.auth);
   const location: TLocation = useLocation();
   const state: TLocationState = location.state;
 
@@ -34,13 +31,7 @@ export default function App() {
   useEffect(() => {
     dispatch(init());
     dispatch(getIngredients());
-    dispatch(wsOrdersAllStart());
   }, []);
-
-  useEffect(() => {
-    if (!accessToken) return;
-    dispatch(wsProfileOrdersStart());
-  }, [accessToken]);
 
   return (
     <>
@@ -97,15 +88,18 @@ export default function App() {
             }
           />
           <Route
-            path="/profile/orders/:id"
+            path="/profile/orders/:number"
             element={
               <ProtectedRoute>
-                <OrderCardPage />
+                <OrderCardPage ordersSource="profileOrders" />
               </ProtectedRoute>
             }
           />
           <Route path="/feed" element={<FeedPage />} />
-          <Route path="/feed/:id" element={<OrderCardPage />} />
+          <Route
+            path="/feed/:number"
+            element={<OrderCardPage ordersSource="ordersAll" />}
+          />
           <Route path="*" element={<NoMatchPage />} />
         </Route>
       </Routes>

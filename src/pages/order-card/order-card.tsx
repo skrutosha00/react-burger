@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./order-card.module.css";
 import { useAppSelector } from "hooks/reduxHooks";
@@ -6,10 +8,17 @@ import { TIngredient, TOrder, TStructureItem } from "services/types/appTypes";
 import { OrderStructureItem } from "components/order-structure-item/order-structure-item";
 import { nanoid } from "nanoid";
 import getCardTimestamp from "utils/getCardTimestamp";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import fetchJson from "utils/fetchJson";
+import { ORDER_URL } from "services/globalVars";
 
 type TStructure = {
   [key: string]: TStructureItem;
+};
+
+type TOrdersSource = "ordersAll" | "profileOrders";
+
+type TProps = {
+  ordersSource: TOrdersSource;
 };
 
 const statusText = {
@@ -45,11 +54,24 @@ function getStructure(order: TOrder, ingredients: TIngredient[]): TStructure {
   return structure;
 }
 
-export default function OrderCardPage() {
-  const { id } = useParams();
-  const { orders } = useAppSelector((store) => store.ordersAll);
+export default function OrderCardPage({ ordersSource }: TProps) {
+  const { number } = useParams();
+  const { orders } = useAppSelector((store) => store[ordersSource]);
   const { ingredients } = useAppSelector((store) => store.ingredients);
-  const order = orders.find((order) => order._id === id);
+  const [order, setOrder] = useState(
+    orders.find((order) => order.number.toString() === number)
+  );
+
+  useEffect(() => {
+    if (!order) {
+      getOrder();
+    }
+
+    async function getOrder() {
+      const responseOrder = await fetchJson(`${ORDER_URL}/${number}`);
+      setOrder(responseOrder.orders[0]);
+    }
+  }, []);
 
   if (!order) {
     if (orders.length) return <Navigate to={"/no-match"} />;

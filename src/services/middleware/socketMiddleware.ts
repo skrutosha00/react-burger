@@ -1,6 +1,7 @@
 import type { Middleware, MiddlewareAPI } from "redux";
 import {
   TWsOrderAllAction,
+  WS_ORDERS_ALL_CLOSE,
   WS_ORDERS_ALL_CLOSED,
   WS_ORDERS_ALL_ERROR,
   WS_ORDERS_ALL_GET_MESSAGE,
@@ -10,6 +11,7 @@ import {
 } from "services/actions/ordersAll";
 import {
   TWsProfileOrdersAction,
+  WS_PROFILE_ORDERS_CLOSE,
   WS_PROFILE_ORDERS_CLOSED,
   WS_PROFILE_ORDERS_ERROR,
   WS_PROFILE_ORDERS_GET_MESSAGE,
@@ -30,30 +32,27 @@ type TWsActions = {
     | typeof WS_PROFILE_ORDERS_GET_MESSAGE;
   closedAction: typeof WS_ORDERS_ALL_CLOSED | typeof WS_PROFILE_ORDERS_CLOSED;
   sendAction: typeof WS_ORDERS_ALL_SEND | typeof WS_PROFILE_ORDERS_SEND;
+  closeAction: typeof WS_ORDERS_ALL_CLOSE | typeof WS_PROFILE_ORDERS_CLOSE;
 };
 
 type TWsAction = TWsOrderAllAction | TWsProfileOrdersAction;
 
-export const socketMiddleware = (
-  wsUrl: string,
-  actions: TWsActions
-): Middleware => {
+export const socketMiddleware = (actions: TWsActions): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
+    let url: string;
 
     return (next) => (action: TWsAction) => {
-      const { dispatch, getState } = store;
+      const { dispatch } = store;
       const { type } = action;
 
-      if (type === WS_PROFILE_ORDERS_START) {
-        wsUrl += `?token=${getState().auth.accessToken?.replace(
-          "Bearer ",
-          ""
-        )}`;
+      if (type === actions.startAction) {
+        url = action.url;
+        socket = new WebSocket(url);
       }
 
-      if (type === actions.startAction) {
-        socket = new WebSocket(wsUrl);
+      if (type === actions.closeAction) {
+        socket?.close();
       }
 
       if (socket) {
@@ -72,6 +71,10 @@ export const socketMiddleware = (
 
         socket.onclose = (event) => {
           dispatch({ type: actions.closedAction, payload: event });
+
+          setTimeout(() => {
+            dispatch({ type: actions.startAction, url });
+          }, 2000);
         };
 
         if (type === actions.sendAction) {

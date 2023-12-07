@@ -1,12 +1,32 @@
-import styles from "./profile-orders.module.css";
-import { useAppSelector } from "hooks/reduxHooks";
-import OrderCard from "components/order-card/order-card";
-import ProfileSidebar from "components/profile-sidebar/profile-sidebar";
+import { useEffect } from "react";
 import { nanoid } from "nanoid";
+
+import styles from "./profile-orders.module.css";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
+import {
+  wsProfileOrdersClose,
+  wsProfileOrdersStart,
+} from "services/actions/profileOrders";
+import { PROFILE_ORDERS_URL } from "services/globalVars";
+import ProfileSidebar from "components/profile-sidebar/profile-sidebar";
+import OrderCard from "components/order-card/order-card";
 
 export default function ProfileOrdersPage() {
   const { orders } = useAppSelector((store) => store.profileOrders);
-  orders.sort((a, b) => -(new Date(a.createdAt) - new Date(b.createdAt)));
+  const { accessToken } = useAppSelector((store) => store.auth);
+  const dispatch = useAppDispatch();
+
+  const sortedOrders = [...orders];
+  sortedOrders.sort((a, b) => -(new Date(a.createdAt) - new Date(b.createdAt)));
+  const token = accessToken.replace("Bearer ", "");
+
+  useEffect(() => {
+    dispatch(wsProfileOrdersStart(PROFILE_ORDERS_URL + `?token=${token}`));
+
+    return () => {
+      dispatch(wsProfileOrdersClose());
+    };
+  }, []);
 
   return (
     <main className={styles.main}>
@@ -16,10 +36,10 @@ export default function ProfileOrdersPage() {
         extraClass={styles.sidebar}
       />
       <section className={`${styles.orders} custom-scroll`}>
-        {orders.map((order) => (
+        {sortedOrders.map((order) => (
           <OrderCard
             order={order}
-            toLink={`/profile/orders/${order._id}`}
+            toLink={`/profile/orders/${order.number}`}
             extraClass={styles.card}
             key={nanoid()}
           />

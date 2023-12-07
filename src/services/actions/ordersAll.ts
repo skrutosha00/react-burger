@@ -4,9 +4,11 @@ export const WS_ORDERS_ALL_ERROR = "WS_ORDERS_ALL_ERROR";
 export const WS_ORDERS_ALL_GET_MESSAGE = "WS_ORDERS_ALL_GET_MESSAGE";
 export const WS_ORDERS_ALL_CLOSED = "WS_ORDERS_ALL_CLOSED";
 export const WS_ORDERS_ALL_SEND = "WS_ORDERS_ALL_SEND";
+export const WS_ORDERS_ALL_CLOSE = "WS_ORDERS_ALL_CLOSE";
 
 export type TWsOrdersAllStartAction = {
   type: typeof WS_ORDERS_ALL_START;
+  url: string;
 };
 
 export type TWsOrdersAllSuccessAction = {
@@ -34,17 +36,23 @@ export type TWsOrdersAllSendAction = {
   payload: Object;
 };
 
+export type TWsOrdersAllCloseAction = {
+  type: typeof WS_ORDERS_ALL_CLOSE;
+};
+
 export type TWsOrderAllAction =
   | TWsOrdersAllStartAction
   | TWsOrdersAllSuccessAction
   | TWsOrdersAllErrorAction
   | TWsOrdersAllGetMessageAction
   | TWsOrdersAllClosedAction
-  | TWsOrdersAllSendAction;
+  | TWsOrdersAllSendAction
+  | TWsOrdersAllCloseAction;
 
-export function wsOrdersAllStart(): TWsOrdersAllStartAction {
+export function wsOrdersAllStart(url: string): TWsOrdersAllStartAction {
   return {
     type: WS_ORDERS_ALL_START,
+    url,
   };
 }
 
@@ -75,5 +83,11 @@ export function wsOrdersAllClosed(payload: Event): TWsOrdersAllClosedAction {
   return {
     type: WS_ORDERS_ALL_CLOSED,
     payload,
+  };
+}
+
+export function wsOrdersAllClose(): TWsOrdersAllCloseAction {
+  return {
+    type: WS_ORDERS_ALL_CLOSE,
   };
 }
