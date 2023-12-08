@@ -1,0 +1,36 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.imageCont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 2px solid #801ab2;
+  border-radius: 50%;
+  background-color: #131316;
+}
+
+.imageCont img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.itemLeft {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  max-width: 320px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

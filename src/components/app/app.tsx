@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import { TLocation, TLocationState } from "services/types";
-import { useAppDispatch } from "hooks/reduxHooks";
+import { TLocation, TLocationState } from "services/types/appTypes";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import { init } from "services/actions";
 import { getIngredients } from "services/actions/ingredients";
 import useAutoLogin from "hooks/useAutoLogin";
@@ -17,6 +17,9 @@ import ProfilePage from "pages/profile/profile";
 import NoMatchPage from "pages/no-match/no-match";
 import Layout from "pages/layout/layout";
 import IngredientsPage from "pages/ingredients/ingredients";
+import FeedPage from "pages/feed/feed";
+import OrderCardPage from "pages/order-card/order-card";
+import ProfileOrdersPage from "pages/profile-orders/profile-orders";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -75,6 +78,27 @@ export default function App() {
                 <ProfilePage />
               </ProtectedRoute>
             }
+          />
+          <Route
+            path="/profile/orders"
+            element={
+              <ProtectedRoute>
+                <ProfileOrdersPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/orders/:number"
+            element={
+              <ProtectedRoute>
+                <OrderCardPage ordersSource="profileOrders" />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/feed" element={<FeedPage />} />
+          <Route
+            path="/feed/:number"
+            element={<OrderCardPage ordersSource="ordersAll" />}
           />
           <Route path="*" element={<NoMatchPage />} />
         </Route>

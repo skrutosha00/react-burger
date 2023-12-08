@@ -1,0 +1,32 @@
+.main {
+  width: 640px;
+  margin: 100px auto auto;
+}
+
+.orderNumber {
+  text-align: center;
+}
+
+.light {
+  color: #0cc;
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 312px;
+  overflow-y: scroll;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

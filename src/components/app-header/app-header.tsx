@@ -1,6 +1,11 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { BurgerIcon, ListIcon, Logo, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  BurgerIcon,
+  ListIcon,
+  Logo,
+  ProfileIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./app-header.module.css";
 import useActiveHeaderNav from "hooks/useActiveHeaderNav";
@@ -18,15 +23,21 @@ export default function AppHeader() {
           <Link to="/">
             <nav className={`${styles.headerButton} pt-4 pb-4 pr-5 pl-5 mr-1`}>
               <BurgerIcon type={activeNav === 0 ? "primary" : "secondary"} />
-              <span className={`text text_type_main-default ${activeNav === 0 ? "" : "text_color_inactive"} ml-2`}>
+              <span
+                className={`text text_type_main-default ${
+                  activeNav === 0 ? "" : "text_color_inactive"
+                } ml-2`}>
                 Конструктор
               </span>
             </nav>
           </Link>
-          <Link to="/orders">
+          <Link to="/feed">
             <nav className={`${styles.headerButton} pt-4 pb-4 pr-5 pl-5`}>
               <ListIcon type={activeNav === 1 ? "primary" : "secondary"} />
-              <span className={`text text_type_main-default ${activeNav === 1 ? "" : "text_color_inactive"} ml-2`}>
+              <span
+                className={`text text_type_main-default ${
+                  activeNav === 1 ? "" : "text_color_inactive"
+                } ml-2`}>
                 Лента заказов
               </span>
             </nav>
@@ -42,7 +53,10 @@ export default function AppHeader() {
         <Link to="/profile">
           <nav className={`${styles.headerButton} pt-4 pb-4 pr-5 pl-5`}>
             <ProfileIcon type={activeNav === 2 ? "primary" : "secondary"} />
-            <span className={`text text_type_main-default ${activeNav === 2 ? "" : "text_color_inactive"} ml-2`}>
+            <span
+              className={`text text_type_main-default ${
+                activeNav === 2 ? "" : "text_color_inactive"
+              } ml-2`}>
               {title}
             </span>
           </nav>
@@ -53,5 +67,5 @@ export default function AppHeader() {
 }
 
 AppHeader.propTypes = {
-  activeNav: PropTypes.number
+  activeNav: PropTypes.number,
 };

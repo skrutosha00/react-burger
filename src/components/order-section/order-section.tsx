@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Button,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./order-section.module.css";
 import { getOrder } from "services/actions/order";
@@ -8,17 +11,23 @@ import { useModal } from "hooks/useModal";
 import OrderDetails from "components/order-details/order-details";
 import { getToken } from "services/actions/token";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-import { TConstructorIngredient } from "services/types";
+import { TConstructorIngredient } from "services/types/appTypes";
 
 export default function OrderSection() {
   const { isModalOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const constructorIngredients: TConstructorIngredient[] = useAppSelector((store) => store.constructorIngredients);
-  const { user, accessToken, refreshToken } = useAppSelector((store) => store.auth);
+  const constructorIngredients: TConstructorIngredient[] = useAppSelector(
+    (store) => store.constructorIngredients
+  );
+  const { user, accessToken, refreshToken } = useAppSelector(
+    (store) => store.auth
+  );
   const { orderFailed } = useAppSelector((store) => store.order);
 
-  const isButtonDisabled = !constructorIngredients.find((ingredient) => ingredient.type === "bun");
+  const isButtonDisabled = !constructorIngredients.find(
+    (ingredient) => ingredient.type === "bun"
+  );
 
   const totalCost = constructorIngredients.reduce((acc, ingredient) => {
     const multiplier = ingredient.type === "bun" ? 2 : 1;
@@ -36,7 +45,9 @@ export default function OrderSection() {
   }, [orderFailed]);
 
   function sendOrder() {
-    const requestBody = JSON.stringify({ ingredients: constructorIngredients.map((ingredient) => ingredient._id) });
+    const requestBody = JSON.stringify({
+      ingredients: constructorIngredients.map((ingredient) => ingredient._id),
+    });
     dispatch(getOrder(requestBody));
   }
 

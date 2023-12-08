@@ -6,7 +6,7 @@
 
 .footerText {
   width: 320px;
-  color: var(--text-dark-grey-secondary-text, #8585ad);
+  color: #8585ad;
 }
 
 .logout {

@@ -1,12 +1,18 @@
 import { useRef } from "react";
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  ConstructorElement,
+  DragIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 
 import { useAppDispatch } from "hooks/reduxHooks";
 import styles from "./constructor-item.module.css";
-import { deleteConstructorIngredient, moveConstructorIngredient } from "services/actions/constructorIngredients";
+import {
+  deleteConstructorIngredient,
+  moveConstructorIngredient,
+} from "services/actions/constructorIngredients";
 import { dragTypes } from "services/globalVars";
-import { TConstructorIngredient } from "services/types";
+import { TConstructorIngredient } from "services/types/appTypes";
 
 type TProps = {
   ingredient: TConstructorIngredient;
@@ -15,7 +21,12 @@ type TProps = {
   index?: number;
 };
 
-export default function ConstructorItem({ ingredient, type, isLocked, index }: TProps) {
+export default function ConstructorItem({
+  ingredient,
+  type,
+  isLocked,
+  index,
+}: TProps) {
   const ref = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
@@ -41,7 +52,8 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }: T
 
       const hoverBoundingRect = ref.current.getBoundingClientRect();
 
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
       const clientOffset = monitor.getClientOffset();
 
@@ -60,7 +72,7 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }: T
 
       dispatch(moveConstructorIngredient(dragIndex, hoverIndex));
       item.index = hoverIndex;
-    }
+    },
   });
   const [{ isDragging }, drag] = useDrag({
     type: ingredient.type === "bun" ? "" : dragTypes.CONSTRUCTOR_INGREDIENT,
@@ -68,12 +80,12 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }: T
       return { id: ingredient.uid, index };
     },
     collect: (monitor) => ({
-      isDragging: monitor.isDragging()
-    })
+      isDragging: monitor.isDragging(),
+    }),
   });
 
   const style = {
-    opacity: isDragging ? "0" : "1"
+    opacity: isDragging ? "0" : "1",
   };
   drag(drop(ref));
 
@@ -82,7 +94,10 @@ export default function ConstructorItem({ ingredient, type, isLocked, index }: T
   }
 
   return (
-    <div ref={ref} style={style} className={`${styles.item} ${isLocked ? styles.isLocked : ""}`}>
+    <div
+      ref={ref}
+      style={style}
+      className={`${styles.item} ${isLocked ? styles.isLocked : ""}`}>
       {!isLocked && <DragIcon type="primary" />}
 
       <ConstructorElement

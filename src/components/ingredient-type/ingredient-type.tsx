@@ -4,24 +4,28 @@ import styles from "./ingredient-type.module.css";
 import Ingredient from "components/ingredient/ingredient";
 import { updateSectionVisability } from "services/actions/ingredients";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-import { TIngredient, TIngredientType } from "services/types";
+import { TIngredient, TIngredientType } from "services/types/appTypes";
 
 const titles = {
   bun: "Булки",
   sauce: "Соусы",
-  main: "Начинки"
+  main: "Начинки",
 };
 
 export default function IngredientType({ type }: { type: TIngredientType }) {
   const dispatch = useAppDispatch();
-  const { ingredients }: { ingredients: TIngredient[] } = useAppSelector((store) => store.ingredients);
-  const ingredientList = ingredients.filter((ingredient) => ingredient.type === type);
+  const { ingredients }: { ingredients: TIngredient[] } = useAppSelector(
+    (store) => store.ingredients
+  );
+  const ingredientList = ingredients.filter(
+    (ingredient) => ingredient.type === type
+  );
 
   const { ref } = useInView({
     threshold: 0.1,
     onChange: (inView) => {
       dispatch(updateSectionVisability(type, inView));
-    }
+    },
   });
 
   return (

@@ -5,21 +5,22 @@ import styles from "./tabs.module.css";
 import { switchTab } from "services/actions/ingredients";
 import { INGREDIENT_TYPES } from "services/globalVars";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-
-type TStoreProps = { currentTab: string; visibleSections: { [key: string]: boolean } };
+import { TIngredientType } from "services/types/appTypes";
 
 export default function Tabs() {
-  const { currentTab, visibleSections }: TStoreProps = useAppSelector((store) => store.ingredients);
+  const { currentTab, visibleSections } = useAppSelector(
+    (store) => store.ingredients
+  );
   const dispatch = useAppDispatch();
 
-  function handleClick(tab: string) {
-    dispatch(switchTab(tab));
+  function handleClick(tab: TIngredientType | string) {
+    dispatch(switchTab(tab as TIngredientType));
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   }
 
   useEffect(() => {
-    for (let type of INGREDIENT_TYPES) {
+    for (let type of INGREDIENT_TYPES as TIngredientType[]) {
       if (visibleSections[type]) {
         dispatch(switchTab(type));
         return;

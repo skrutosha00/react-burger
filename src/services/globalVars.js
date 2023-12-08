@@ -11,9 +11,13 @@ export const LOGOUT_URL = BASE_URL + "/auth/logout";
 export const TOKEN_URL = BASE_URL + "/auth/token";
 export const USER_URL = BASE_URL + "/auth/user";
 
+export const WS_URL = "wss://norma.nomoreparties.space";
+export const ORDERS_All_URL = WS_URL + "/orders/all";
+export const PROFILE_ORDERS_URL = WS_URL + "/orders";
+
 export const INGREDIENT_TYPES = ["bun", "sauce", "main"];
 
 export const dragTypes = {
   INGREDIENT: "INGREDIENT",
-  CONSTRUCTOR_INGREDIENT: "CONSTRUCTOR_INGREDIENT"
+  CONSTRUCTOR_INGREDIENT: "CONSTRUCTOR_INGREDIENT",
 };

@@ -3,21 +3,24 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import IngredientDetails from "components/ingredient-details/ingredient-details";
 import Modal from "components/modal/modal";
-import { deleteCurrentIngredient, setCurrentIngredient } from "services/actions/currentIngredient";
+import {
+  deleteCurrentIngredient,
+  setCurrentIngredient,
+} from "services/actions/currentIngredient";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-import { TIngredient } from "services/types";
+import { TIngredient } from "services/types/appTypes";
 
 export default function IngredientModal() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { ingredients }: { ingredients: TIngredient[] } = useAppSelector((store) => store.ingredients);
-  const currentIngredient: TIngredient = useAppSelector((store) => store.currentIngredient);
+  const { ingredients } = useAppSelector((store) => store.ingredients);
+  const currentIngredient = useAppSelector((store) => store.currentIngredient);
 
   const ingredient = ingredients.find((ingredient) => ingredient._id === id);
 
   useEffect(() => {
-    if (!ingredients.length) return;
+    if (!ingredients.length || !ingredient) return;
     dispatch(setCurrentIngredient(ingredient));
   }, [ingredients]);
 
@@ -32,7 +35,7 @@ export default function IngredientModal() {
 
   return (
     <>
-      {currentIngredient._id && (
+      {Object.keys(currentIngredient).length && (
         <Modal close={closeModal}>
           <IngredientDetails />
         </Modal>
