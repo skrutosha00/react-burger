@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { nanoid } from "nanoid";
 
-import { TIngredient, TOrder } from "services/types/appTypes";
 import styles from "./order-card.module.css";
 import getCardTimestamp from "utils/getCardTimestamp";
+import { TIngredient, TOrder } from "services/types/appTypes";
 import { useAppSelector } from "hooks/reduxHooks";
-import { nanoid } from "nanoid";
 
 type TProps = {
   order: TOrder;
@@ -42,7 +42,7 @@ function getCardInfo(allIngredients: TIngredient[], ingredientIds: string[]) {
 
   return {
     total,
-    imageList,
+    imageList
   };
 }
 

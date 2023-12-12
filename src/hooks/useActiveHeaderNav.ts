@@ -8,7 +8,7 @@ type TActiveNavByPath = {
 const defaultActiveNav = 0;
 const activeNavByPath: TActiveNavByPath = {
   "/feed": 1,
-  "/profile": 2,
+  "/profile": 2
 };
 
 export default function useActiveHeaderNav(): number {

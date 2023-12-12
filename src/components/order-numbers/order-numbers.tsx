@@ -1,7 +1,8 @@
-import { TOrder } from "services/types/appTypes";
-import styles from "./order-numbers.module.css";
-import { useAppSelector } from "hooks/reduxHooks";
 import { nanoid } from "nanoid";
+
+import styles from "./order-numbers.module.css";
+import { TOrder } from "services/types/appTypes";
+import { useAppSelector } from "hooks/reduxHooks";
 
 function getOrders(orders: TOrder[]) {
   const readyOrders: string[] = [];

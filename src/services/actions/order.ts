@@ -22,20 +22,20 @@ export type TGetOrderFailedAction = {
 
 export function getOrderRequest(): TGetOrderRequestAction {
   return {
-    type: GET_ORDER_REQUEST,
+    type: GET_ORDER_REQUEST
   };
 }
 
 export function getOrderSuccess(number: number): TGetOrderSuccessAction {
   return {
     type: GET_ORDER_SUCCESS,
-    number,
+    number
   };
 }
 
 export function getOrderFailed(): TGetOrderFailedAction {
   return {
-    type: GET_ORDER_FAILED,
+    type: GET_ORDER_FAILED
   };
 }
 
@@ -47,9 +47,9 @@ export function getOrder(requestBody: string) {
         method: "POST",
         headers: {
           authorization: localStorage.getItem("accessToken"),
-          "Content-Type": "application/json;charset=utf-8",
+          "Content-Type": "application/json;charset=utf-8"
         },
-        body: requestBody,
+        body: requestBody
       });
       dispatch(getOrderSuccess(response.order.number));
       dispatch(clearConstructorIngredients());

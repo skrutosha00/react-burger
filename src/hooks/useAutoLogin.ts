@@ -6,7 +6,9 @@ import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 
 export default function useAutoLogin() {
   const dispatch = useAppDispatch();
-  const { user, accessToken, refreshToken } = useAppSelector((store) => store.auth);
+  const { user, accessToken, refreshToken } = useAppSelector(
+    (store) => store.auth
+  );
   const { getUserFailed } = useAppSelector((store) => store.user);
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import styles from "./profile-orders.module.css";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import {
   wsProfileOrdersClose,
-  wsProfileOrdersStart,
+  wsProfileOrdersStart
 } from "services/actions/profileOrders";
 import { PROFILE_ORDERS_URL } from "services/globalVars";
 import ProfileSidebar from "components/profile-sidebar/profile-sidebar";

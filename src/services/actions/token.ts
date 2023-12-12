@@ -22,20 +22,20 @@ export type TTokenFailedAction = {
 
 export function tokenRequest(): TTokenRequestAction {
   return {
-    type: TOKEN_REQUEST,
+    type: TOKEN_REQUEST
   };
 }
 
 export function tokenSuccess(newTokens: TTokens): TTokenSuccessAction {
   return {
     type: TOKEN_SUCCESS,
-    newTokens,
+    newTokens
   };
 }
 
 export function tokenFailed(): TTokenFailedAction {
   return {
-    type: TOKEN_FAILED,
+    type: TOKEN_FAILED
   };
 }
 
@@ -46,9 +46,9 @@ export function getToken(requestBody: string) {
       const response = await fetchJson(TOKEN_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json;charset=utf-8",
+          "Content-Type": "application/json;charset=utf-8"
         },
-        body: requestBody,
+        body: requestBody
       });
       dispatch(tokenSuccess(response));
     } catch (err) {

@@ -4,7 +4,7 @@ import {
   TOKEN_SUCCESS,
   TTokenFailedAction,
   TTokenRequestAction,
-  TTokenSuccessAction,
+  TTokenSuccessAction
 } from "services/actions/token";
 
 type TTokenState = {
@@ -19,7 +19,7 @@ export type TTokenAction =
 
 const initialState = {
   tokenRequest: false,
-  tokenFailed: false,
+  tokenFailed: false
 };
 
 export default function tokenReducer(
@@ -30,19 +30,19 @@ export default function tokenReducer(
     case TOKEN_REQUEST: {
       return {
         tokenFailed: false,
-        tokenRequest: true,
+        tokenRequest: true
       };
     }
     case TOKEN_SUCCESS: {
       return {
         tokenFailed: false,
-        tokenRequest: false,
+        tokenRequest: false
       };
     }
     case TOKEN_FAILED: {
       return {
         tokenFailed: true,
-        tokenRequest: false,
+        tokenRequest: false
       };
     }
     default: {

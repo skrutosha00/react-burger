@@ -21,20 +21,20 @@ export type TGetUserFailedAction = {
 
 export function getUserRequest(): TGetUserRequestAction {
   return {
-    type: GET_USER_REQUEST,
+    type: GET_USER_REQUEST
   };
 }
 
 export function getUserSuccess(authData: TAuthData): TGetUserSuccessAction {
   return {
     type: GET_USER_SUCCESS,
-    authData,
+    authData
   };
 }
 
 export function getUserFailed(): TGetUserFailedAction {
   return {
-    type: GET_USER_FAILED,
+    type: GET_USER_FAILED
   };
 }
 
@@ -44,8 +44,8 @@ export function getUser(token: string) {
     try {
       const response = await fetchJson(USER_URL, {
         headers: {
-          authorization: token,
-        },
+          authorization: token
+        }
       });
       dispatch(getUserSuccess(response));
     } catch (err) {

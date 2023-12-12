@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
-  CurrencyIcon,
+  CurrencyIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./order-section.module.css";
@@ -46,7 +46,7 @@ export default function OrderSection() {
 
   function sendOrder() {
     const requestBody = JSON.stringify({
-      ingredients: constructorIngredients.map((ingredient) => ingredient._id),
+      ingredients: constructorIngredients.map((ingredient) => ingredient._id)
     });
     dispatch(getOrder(requestBody));
   }
@@ -73,7 +73,8 @@ export default function OrderSection() {
           type="primary"
           size="large"
           disabled={isButtonDisabled}
-          onClick={handleOrderButtonClick}>
+          onClick={handleOrderButtonClick}
+          cy-test="OrderButton">
           Оформить заказ
         </Button>
       </section>

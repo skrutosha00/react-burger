@@ -4,7 +4,7 @@ import {
   TUpdateUserSuccessAction,
   UPDATE_USER_FAILED,
   UPDATE_USER_REQUEST,
-  UPDATE_USER_SUCCESS,
+  UPDATE_USER_SUCCESS
 } from "services/actions/updateUser";
 
 type TUpdateUserState = {
@@ -19,7 +19,7 @@ export type TUpdateUserAction =
 
 const initialState: TUpdateUserState = {
   updateUserRequest: false,
-  updateUserFailed: false,
+  updateUserFailed: false
 };
 
 export default function updateUserReducer(
@@ -30,19 +30,19 @@ export default function updateUserReducer(
     case UPDATE_USER_REQUEST: {
       return {
         updateUserFailed: false,
-        updateUserRequest: true,
+        updateUserRequest: true
       };
     }
     case UPDATE_USER_SUCCESS: {
       return {
         updateUserFailed: false,
-        updateUserRequest: false,
+        updateUserRequest: false
       };
     }
     case UPDATE_USER_FAILED: {
       return {
         updateUserFailed: true,
-        updateUserRequest: false,
+        updateUserRequest: false
       };
     }
     default: {

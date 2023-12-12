@@ -33,7 +33,10 @@ export default function Modal({ children, close }: TProps) {
         <>
           <div className={styles.modal}>
             {children}
-            <div className={styles.closeIcon} onClick={close}>
+            <div
+              className={styles.closeIcon}
+              onClick={close}
+              cy-test="ModalCloseButton">
               <CloseIcon type="primary" />
             </div>
           </div>

@@ -4,7 +4,7 @@ import {
   REGISTER_SUCCESS,
   TRegisterFailedAction,
   TRegisterRequestAction,
-  TRegisterSuccessAction,
+  TRegisterSuccessAction
 } from "services/actions/register";
 
 type TRegisterState = {
@@ -19,7 +19,7 @@ export type TRegisterAction =
 
 const initialState: TRegisterState = {
   registerRequest: false,
-  registerFailed: false,
+  registerFailed: false
 };
 
 export default function registerReducer(
@@ -30,19 +30,19 @@ export default function registerReducer(
     case REGISTER_REQUEST: {
       return {
         registerFailed: false,
-        registerRequest: true,
+        registerRequest: true
       };
     }
     case REGISTER_SUCCESS: {
       return {
         registerFailed: false,
-        registerRequest: false,
+        registerRequest: false
       };
     }
     case REGISTER_FAILED: {
       return {
         registerFailed: true,
-        registerRequest: false,
+        registerRequest: false
       };
     }
     default: {

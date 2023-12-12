@@ -3,7 +3,7 @@ import {
   WS_ORDERS_ALL_CLOSED,
   WS_ORDERS_ALL_ERROR,
   WS_ORDERS_ALL_GET_MESSAGE,
-  WS_ORDERS_ALL_SUCCESS,
+  WS_ORDERS_ALL_SUCCESS
 } from "services/actions/ordersAll";
 import { TOrder } from "services/types/appTypes";
 
@@ -17,7 +17,7 @@ type TOrdersAllState = {
 
 const initialState: TOrdersAllState = {
   connected: false,
-  orders: [],
+  orders: []
 };
 
 export default function ordersAllReducer(
@@ -28,7 +28,7 @@ export default function ordersAllReducer(
     case WS_ORDERS_ALL_SUCCESS: {
       return {
         ...state,
-        connected: true,
+        connected: true
       };
     }
     case WS_ORDERS_ALL_ERROR: {
@@ -44,7 +44,7 @@ export default function ordersAllReducer(
         ...state,
         orders: payload.orders,
         total: payload.total,
-        totalToday: payload.totalToday,
+        totalToday: payload.totalToday
       };
     }
     default:

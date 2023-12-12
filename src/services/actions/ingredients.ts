@@ -36,7 +36,7 @@ export type TUpdateSectionVisabilityAction = {
 
 export function getIngredientsRequest(): TGetIngredientsRequestAction {
   return {
-    type: GET_INGREDIENTS_REQUEST,
+    type: GET_INGREDIENTS_REQUEST
   };
 }
 
@@ -45,20 +45,20 @@ export function getIngredientsSuccess(
 ): TGetIngredientsSuccessAction {
   return {
     type: GET_INGREDIENTS_SUCCESS,
-    ingredients,
+    ingredients
   };
 }
 
 export function getIngredientsFailed(): TGetIngredientsFailedAction {
   return {
-    type: GET_INGREDIENTS_FAILED,
+    type: GET_INGREDIENTS_FAILED
   };
 }
 
 export function switchTab(tab: TIngredientType): TSwitchTabAction {
   return {
     type: SWITCH_TAB,
-    tab,
+    tab
   };
 }
 
@@ -69,7 +69,7 @@ export function updateSectionVisability(
   return {
     type: UPDATE_SECTION_VISABILITY,
     ingredientType,
-    intersect,
+    intersect
   };
 }
 

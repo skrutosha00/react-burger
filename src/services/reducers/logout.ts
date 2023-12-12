@@ -4,7 +4,7 @@ import {
   LOGOUT_SUCCESS,
   TLogoutFailedAction,
   TLogoutRequestAction,
-  TLogoutSuccessAction,
+  TLogoutSuccessAction
 } from "services/actions/logout";
 
 type TLogoutState = {
@@ -19,7 +19,7 @@ export type TLogoutAction =
 
 const initialState: TLogoutState = {
   logoutRequest: false,
-  logoutFailed: false,
+  logoutFailed: false
 };
 
 export default function logoutReducer(
@@ -30,19 +30,19 @@ export default function logoutReducer(
     case LOGOUT_REQUEST: {
       return {
         logoutFailed: false,
-        logoutRequest: true,
+        logoutRequest: true
       };
     }
     case LOGOUT_SUCCESS: {
       return {
         logoutFailed: false,
-        logoutRequest: false,
+        logoutRequest: false
       };
     }
     case LOGOUT_FAILED: {
       return {
         logoutFailed: true,
-        logoutRequest: false,
+        logoutRequest: false
       };
     }
     default: {

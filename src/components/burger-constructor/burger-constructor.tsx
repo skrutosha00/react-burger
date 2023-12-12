@@ -31,16 +31,18 @@ export default function BurgerConstructor() {
       collect: (monitor) => ({ isOver: !!monitor.isOver() }),
       drop(item: TIngredient) {
         dispatch(addConstructorIngredient({ ...item, uid: nanoid() }));
-      },
+      }
     })
   );
 
   const style: CSSProperties = {
-    boxShadow: isOver ? "1px 1px yellow, -1px -1px yellow" : "unset",
+    boxShadow: isOver ? "1px 1px yellow, -1px -1px yellow" : "unset"
   };
 
   return (
-    <section className={`${styles.constructor} pt-25 pl-4`}>
+    <section
+      cy-test="BurgerConstructor"
+      className={`${styles.constructor} pt-25 pl-4`}>
       <div className={styles.ingredients} ref={ref} style={style}>
         {!!ingredients.length && (
           <>

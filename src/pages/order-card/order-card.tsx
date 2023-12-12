@@ -24,7 +24,7 @@ type TProps = {
 const statusText = {
   done: "Выполнен",
   pending: "В процессе",
-  created: "Создан",
+  created: "Создан"
 };
 
 function getStructure(order: TOrder, ingredients: TIngredient[]): TStructure {
@@ -44,7 +44,7 @@ function getStructure(order: TOrder, ingredients: TIngredient[]): TStructure {
         name: ingredient.name,
         imageLink: ingredient.image,
         price: ingredient.price,
-        type: ingredient.type,
+        type: ingredient.type
       };
     } else {
       structure[ingredientId].count += 1 * multiplier;

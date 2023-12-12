@@ -3,7 +3,7 @@ import {
   WS_PROFILE_ORDERS_CLOSED,
   WS_PROFILE_ORDERS_ERROR,
   WS_PROFILE_ORDERS_GET_MESSAGE,
-  WS_PROFILE_ORDERS_SUCCESS,
+  WS_PROFILE_ORDERS_SUCCESS
 } from "services/actions/profileOrders";
 import { TOrder } from "services/types/appTypes";
 
@@ -16,10 +16,10 @@ type TProfileOrdersState = {
 
 const initialState: TProfileOrdersState = {
   connected: false,
-  orders: [],
+  orders: []
 };
 
-export default function ordersAllReducer(
+export default function profileOrdersReducer(
   state = initialState,
   action: TWsProfileOrdersAction
 ): TProfileOrdersState {
@@ -27,7 +27,7 @@ export default function ordersAllReducer(
     case WS_PROFILE_ORDERS_SUCCESS: {
       return {
         ...state,
-        connected: true,
+        connected: true
       };
     }
     case WS_PROFILE_ORDERS_ERROR: {
@@ -41,7 +41,7 @@ export default function ordersAllReducer(
 
       return {
         ...state,
-        orders: payload.orders,
+        orders: payload.orders
       };
     }
     default:
