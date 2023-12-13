@@ -17,7 +17,7 @@ export type TUserAction =
   | TGetUserRequestAction
   | TGetUserFailedAction;
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   getUserRequest: false,
   getUserFailed: false
 };

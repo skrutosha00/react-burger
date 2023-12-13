@@ -17,7 +17,7 @@ export type TLoginAction =
   | TLoginSuccessAction
   | TLoginFailedAction;
 
-const initialState: TLoginState = {
+export const initialState: TLoginState = {
   loginRequest: false,
   loginFailed: false
 };

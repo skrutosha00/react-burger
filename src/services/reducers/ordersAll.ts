@@ -15,7 +15,7 @@ type TOrdersAllState = {
   error?: Event;
 };
 
-const initialState: TOrdersAllState = {
+export const initialState: TOrdersAllState = {
   connected: false,
   orders: []
 };

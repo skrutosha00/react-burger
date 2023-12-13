@@ -3,58 +3,32 @@ import {
   tokenRequest,
   tokenSuccess
 } from "services/actions/token";
-import tokenReducer from "services/reducers/token";
+import tokenReducer, { initialState } from "services/reducers/token";
+
+const requestState = {
+  ...initialState,
+  tokenRequest: true
+};
+
+const failedState = {
+  ...initialState,
+  tokenFailed: true
+};
 
 describe("token reducer", () => {
   it("should return the initial state", () => {
-    expect(tokenReducer(undefined, {})).toEqual({
-      tokenRequest: false,
-      tokenFailed: false
-    });
+    expect(tokenReducer(undefined, {})).toEqual(initialState);
   });
 
   it("should handle TOKEN_REQUEST", () => {
-    expect(
-      tokenReducer(
-        {
-          tokenRequest: false,
-          tokenFailed: false
-        },
-        tokenRequest()
-      )
-    ).toEqual({
-      tokenRequest: true,
-      tokenFailed: false
-    });
+    expect(tokenReducer(initialState, tokenRequest())).toEqual(requestState);
   });
 
   it("should handle TOKEN_SUCCESS", () => {
-    expect(
-      tokenReducer(
-        {
-          tokenFailed: false,
-          tokenRequest: true
-        },
-        tokenSuccess()
-      )
-    ).toEqual({
-      tokenRequest: false,
-      tokenFailed: false
-    });
+    expect(tokenReducer(requestState, tokenSuccess())).toEqual(initialState);
   });
 
   it("should handle TOKEN_FAILED", () => {
-    expect(
-      tokenReducer(
-        {
-          tokenFailed: false,
-          tokenRequest: true
-        },
-        tokenFailed()
-      )
-    ).toEqual({
-      tokenRequest: false,
-      tokenFailed: true
-    });
+    expect(tokenReducer(requestState, tokenFailed())).toEqual(failedState);
   });
 });

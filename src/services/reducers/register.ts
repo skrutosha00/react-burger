@@ -17,7 +17,7 @@ export type TRegisterAction =
   | TRegisterFailedAction
   | TRegisterRequestAction;
 
-const initialState: TRegisterState = {
+export const initialState: TRegisterState = {
   registerRequest: false,
   registerFailed: false
 };

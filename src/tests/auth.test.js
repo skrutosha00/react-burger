@@ -7,128 +7,70 @@ import { updateUserSuccess } from "services/actions/updateUser";
 import { getUserSuccess } from "services/actions/user";
 import authReducer, { initialState } from "services/reducers/auth";
 
+const testUser = {
+  user: { name: "name", email: "123@123" },
+  accessToken: "12345",
+  refreshToken: "12345"
+};
+
+const testNewTokens = {
+  refreshToken: "98765",
+  accessToken: "98765"
+};
+
+const testNewUser = {
+  name: "newName",
+  email: "newEmail"
+};
+
 describe("auth reducer", () => {
   it("should return the initial state", () => {
-    expect(authReducer(undefined, {})).toEqual({
-      user: null,
-      refreshToken: null,
-      accessToken: null
-    });
+    expect(authReducer(undefined, {})).toEqual(initialState);
   });
 
   it("should handle INIT", () => {
-    expect(authReducer(initialState, init())).toEqual({
-      user: null,
-      refreshToken: null,
-      accessToken: null
-    });
+    expect(authReducer(initialState, init())).toEqual(initialState);
   });
 
   it("should handle LOGIN_SUCCESS", () => {
-    expect(
-      authReducer(
-        initialState,
-        loginSuccess({
-          user: { name: "name", email: "123@123" },
-          accessToken: "12345",
-          refreshToken: "12345"
-        })
-      )
-    ).toEqual({
-      user: { name: "name", email: "123@123" },
-      refreshToken: "12345",
-      accessToken: "12345"
-    });
+    expect(authReducer(initialState, loginSuccess(testUser))).toEqual(testUser);
   });
 
   it("should handle REGISTER_SUCCESS", () => {
-    expect(
-      authReducer(
-        initialState,
-        registerSuccess({
-          user: { name: "name", email: "123@123" },
-          accessToken: "12345",
-          refreshToken: "12345"
-        })
-      )
-    ).toEqual({
-      user: { name: "name", email: "123@123" },
-      refreshToken: "12345",
-      accessToken: "12345"
-    });
+    expect(authReducer(initialState, registerSuccess(testUser))).toEqual(
+      testUser
+    );
   });
 
   it("should handle GET_USER_SUCCESS", () => {
-    expect(
-      authReducer(
-        initialState,
-        getUserSuccess({
-          user: { name: "name", email: "123@123" },
-          accessToken: "12345",
-          refreshToken: "12345"
-        })
-      )
-    ).toEqual({
-      user: { name: "name", email: "123@123" },
-      refreshToken: "12345",
-      accessToken: "12345"
-    });
+    expect(authReducer(initialState, getUserSuccess(testUser))).toEqual(
+      testUser
+    );
   });
 
   it("should handle LOGOUT_SUCCESS", () => {
-    expect(
-      authReducer(
-        {
-          user: { name: "name", email: "123@123" },
-          accessToken: "12345",
-          refreshToken: "12345"
-        },
-        logoutSuccess()
-      )
-    ).toEqual(initialState);
+    expect(authReducer(testUser, logoutSuccess())).toEqual(initialState);
   });
 
   it("should handle TOKEN_SUCCESS", () => {
-    expect(
-      authReducer(
-        {
-          user: { name: "name", email: "123@123" },
-          accessToken: "12345",
-          refreshToken: "12345"
-        },
-        tokenSuccess({
-          accessToken: "98765",
-          refreshToken: "98765"
-        })
-      )
-    ).toEqual({
-      user: { name: "name", email: "123@123" },
-      refreshToken: "98765",
-      accessToken: "98765"
+    expect(authReducer(testUser, tokenSuccess(testNewTokens))).toEqual({
+      ...testUser,
+      ...testNewTokens
     });
   });
 
   it("should handle UPDATE_USER_SUCCESS", () => {
     expect(
       authReducer(
-        {
-          user: { name: "name", email: "123@123" },
-          accessToken: "12345",
-          refreshToken: "12345"
-        },
+        testUser,
         updateUserSuccess({
-          user: {
-            name: "newName",
-            email: "newEmail"
-          },
-          refreshToken: "12345",
-          accessToken: "12345"
+          ...testUser,
+          user: testNewUser
         })
       )
     ).toEqual({
-      user: { name: "newName", email: "newEmail" },
-      refreshToken: "12345",
-      accessToken: "12345"
+      ...testUser,
+      user: testNewUser
     });
   });
 });

@@ -3,58 +3,38 @@ import {
   updateUserRequest,
   updateUserSuccess
 } from "services/actions/updateUser";
-import updateUserReducer from "services/reducers/updateUser";
+import updateUserReducer, { initialState } from "services/reducers/updateUser";
+
+const requestState = {
+  ...initialState,
+  updateUserRequest: true
+};
+
+const failedState = {
+  ...initialState,
+  updateUserFailed: true
+};
 
 describe("updateUser reducer", () => {
   it("should return the initial state", () => {
-    expect(updateUserReducer(undefined, {})).toEqual({
-      updateUserRequest: false,
-      updateUserFailed: false
-    });
+    expect(updateUserReducer(undefined, {})).toEqual(initialState);
   });
 
   it("should handle UPDATE_USER_REQUEST", () => {
-    expect(
-      updateUserReducer(
-        {
-          updateUserRequest: false,
-          updateUserFailed: false
-        },
-        updateUserRequest()
-      )
-    ).toEqual({
-      updateUserRequest: true,
-      updateUserFailed: false
-    });
+    expect(updateUserReducer(initialState, updateUserRequest())).toEqual(
+      requestState
+    );
   });
 
   it("should handle UPDATE_USER_SUCCESS", () => {
-    expect(
-      updateUserReducer(
-        {
-          updateUserFailed: false,
-          updateUserRequest: true
-        },
-        updateUserSuccess()
-      )
-    ).toEqual({
-      updateUserRequest: false,
-      updateUserFailed: false
-    });
+    expect(updateUserReducer(requestState, updateUserSuccess())).toEqual(
+      initialState
+    );
   });
 
   it("should handle UPDATE_USER_FAILED", () => {
-    expect(
-      updateUserReducer(
-        {
-          updateUserFailed: false,
-          updateUserRequest: true
-        },
-        updateUserFailed()
-      )
-    ).toEqual({
-      updateUserRequest: false,
-      updateUserFailed: true
-    });
+    expect(updateUserReducer(requestState, updateUserFailed())).toEqual(
+      failedState
+    );
   });
 });

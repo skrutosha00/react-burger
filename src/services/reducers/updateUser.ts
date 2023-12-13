@@ -17,7 +17,7 @@ export type TUpdateUserAction =
   | TUpdateUserRequestAction
   | TUpdateUserFailedAction;
 
-const initialState: TUpdateUserState = {
+export const initialState: TUpdateUserState = {
   updateUserRequest: false,
   updateUserFailed: false
 };

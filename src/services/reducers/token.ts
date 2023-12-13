@@ -17,7 +17,7 @@ export type TTokenAction =
   | TTokenSuccessAction
   | TTokenFailedAction;
 
-const initialState = {
+export const initialState = {
   tokenRequest: false,
   tokenFailed: false
 };

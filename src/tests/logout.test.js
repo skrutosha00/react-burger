@@ -3,58 +3,32 @@ import {
   logoutRequest,
   logoutSuccess
 } from "services/actions/logout";
-import logoutReducer from "services/reducers/logout";
+import logoutReducer, { initialState } from "services/reducers/logout";
+
+const requestState = {
+  ...initialState,
+  logoutRequest: true
+};
+
+const failedState = {
+  ...initialState,
+  logoutFailed: true
+};
 
 describe("logout reducer", () => {
   it("should return the initial state", () => {
-    expect(logoutReducer(undefined, {})).toEqual({
-      logoutRequest: false,
-      logoutFailed: false
-    });
+    expect(logoutReducer(undefined, {})).toEqual(initialState);
   });
 
   it("should handle LOGOUT_REQUEST", () => {
-    expect(
-      logoutReducer(
-        {
-          logoutRequest: false,
-          logoutFailed: false
-        },
-        logoutRequest()
-      )
-    ).toEqual({
-      logoutRequest: true,
-      logoutFailed: false
-    });
+    expect(logoutReducer(initialState, logoutRequest())).toEqual(requestState);
   });
 
   it("should handle LOGOUT_SUCCESS", () => {
-    expect(
-      logoutReducer(
-        {
-          logoutFailed: false,
-          logoutRequest: true
-        },
-        logoutSuccess()
-      )
-    ).toEqual({
-      logoutRequest: false,
-      logoutFailed: false
-    });
+    expect(logoutReducer(requestState, logoutSuccess())).toEqual(initialState);
   });
 
   it("should handle LOGOUT_FAILED", () => {
-    expect(
-      logoutReducer(
-        {
-          logoutFailed: false,
-          logoutRequest: true
-        },
-        logoutFailed()
-      )
-    ).toEqual({
-      logoutRequest: false,
-      logoutFailed: true
-    });
+    expect(logoutReducer(requestState, logoutFailed())).toEqual(failedState);
   });
 });

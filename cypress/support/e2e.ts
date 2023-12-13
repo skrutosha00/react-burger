@@ -1,6 +1,8 @@
+import { DEV_URL } from "../../src/services/globalVars";
+
 export function setUpAndVisit() {
   cy.viewport(1440, 900);
-  cy.visit("http://localhost:3000/");
+  cy.visit(DEV_URL);
 }
 
 export function dragDrop(ingredientPosition: "first" | "last") {

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { nanoid } from "nanoid";
 
 import styles from "./order-card.module.css";
 import getCardTimestamp from "utils/getCardTimestamp";
@@ -63,8 +62,8 @@ export default function OrderCard({ order, toLink, extraClass }: TProps) {
 
       <div className={styles.cardMain}>
         <div className={styles.ingredients}>
-          {imageList.map((url) => (
-            <div className={`${styles.ingredient}`} key={nanoid()}>
+          {imageList.map((url, index) => (
+            <div className={`${styles.ingredient}`} key={index}>
               <img src={url} alt={`ingredient logo`} />
             </div>
           ))}

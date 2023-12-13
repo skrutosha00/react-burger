@@ -15,6 +15,8 @@ export const WS_URL = "wss://norma.nomoreparties.space";
 export const ORDERS_All_URL = WS_URL + "/orders/all";
 export const PROFILE_ORDERS_URL = WS_URL + "/orders";
 
+export const DEV_URL = "http://localhost:3000";
+
 export const INGREDIENT_TYPES = ["bun", "sauce", "main"];
 
 export const dragTypes = {

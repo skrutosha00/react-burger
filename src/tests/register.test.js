@@ -3,58 +3,38 @@ import {
   registerRequest,
   registerSuccess
 } from "services/actions/register";
-import registerReducer from "services/reducers/register";
+import registerReducer, { initialState } from "services/reducers/register";
+
+const requestState = {
+  ...initialState,
+  registerRequest: true
+};
+
+const failedState = {
+  ...initialState,
+  registerFailed: true
+};
 
 describe("register reducer", () => {
   it("should return the initial state", () => {
-    expect(registerReducer(undefined, {})).toEqual({
-      registerRequest: false,
-      registerFailed: false
-    });
+    expect(registerReducer(undefined, {})).toEqual(initialState);
   });
 
   it("should handle REGISTER_REQUEST", () => {
-    expect(
-      registerReducer(
-        {
-          registerRequest: false,
-          registerFailed: false
-        },
-        registerRequest()
-      )
-    ).toEqual({
-      registerRequest: true,
-      registerFailed: false
-    });
+    expect(registerReducer(initialState, registerRequest())).toEqual(
+      requestState
+    );
   });
 
   it("should handle REGISTER_SUCCESS", () => {
-    expect(
-      registerReducer(
-        {
-          registerFailed: false,
-          registerRequest: true
-        },
-        registerSuccess()
-      )
-    ).toEqual({
-      registerRequest: false,
-      registerFailed: false
-    });
+    expect(registerReducer(requestState, registerSuccess())).toEqual(
+      initialState
+    );
   });
 
   it("should handle REGISTER_FAILED", () => {
-    expect(
-      registerReducer(
-        {
-          registerFailed: false,
-          registerRequest: true
-        },
-        registerFailed()
-      )
-    ).toEqual({
-      registerRequest: false,
-      registerFailed: true
-    });
+    expect(registerReducer(requestState, registerFailed())).toEqual(
+      failedState
+    );
   });
 });

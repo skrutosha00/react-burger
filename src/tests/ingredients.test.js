@@ -25,23 +25,26 @@ const testCurrentIngredients = [
   }
 ];
 
+const requestState = {
+  ...initialState,
+  ingredientsRequest: true
+};
+
 describe("ingredients reducer", () => {
   it("should return the initial state", () => {
     expect(ingredientsReducer(undefined, {})).toEqual(initialState);
   });
 
   it("should handle GET_INGREDIENTS_REQUEST", () => {
-    expect(ingredientsReducer(initialState, getIngredientsRequest())).toEqual({
-      ...initialState,
-      ingredientsRequest: true,
-      ingredientsFailed: false
-    });
+    expect(ingredientsReducer(initialState, getIngredientsRequest())).toEqual(
+      requestState
+    );
   });
 
   it("should handle GET_INGREDIENTS_SUCCESS", () => {
     expect(
       ingredientsReducer(
-        initialState,
+        requestState,
         getIngredientsSuccess(testCurrentIngredients)
       )
     ).toEqual({
@@ -51,16 +54,7 @@ describe("ingredients reducer", () => {
   });
 
   it("should handle GET_INGREDIENTS_FAILED", () => {
-    expect(
-      ingredientsReducer(
-        {
-          ...initialState,
-          ingredients: testCurrentIngredients,
-          ingredientsRequest: true
-        },
-        getIngredientsFailed()
-      )
-    ).toEqual({
+    expect(ingredientsReducer(requestState, getIngredientsFailed())).toEqual({
       ...initialState,
       ingredients: [],
       ingredientsFailed: true,
@@ -75,11 +69,11 @@ describe("ingredients reducer", () => {
           ...initialState,
           visibleSections: { bun: false }
         },
-        updateSectionVisability({ ingredientType: "bun", intersect: true })
+        updateSectionVisability("bun", true)
       )
     ).toEqual({
       ...initialState,
-      visibleSections: { bun: false }
+      visibleSections: { bun: true }
     });
   });
 

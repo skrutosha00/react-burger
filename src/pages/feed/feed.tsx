@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { nanoid } from "nanoid";
 
 import styles from "./feed.module.css";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
@@ -32,7 +31,7 @@ export default function FeedPage() {
               order={order}
               toLink={`/feed/${order.number}`}
               extraClass={styles.orderCard}
-              key={nanoid()}
+              key={order._id}
             />
           ))}
         </section>

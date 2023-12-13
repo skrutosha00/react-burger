@@ -18,7 +18,7 @@ export type TOrderAction =
   | TGetOrderFailedAction
   | TGetOrderRequestAction;
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   orderNumber: null,
   orderRequest: false,
   orderFailed: false

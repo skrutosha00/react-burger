@@ -9,8 +9,13 @@ import {
   wsProfileOrdersError,
   wsProfileOrdersSuccess
 } from "services/actions/profileOrders";
-import ordersAllReducer from "services/reducers/ordersAll";
+import ordersAllReducer, { initialState } from "services/reducers/ordersAll";
 import profileOrdersReducer from "services/reducers/profileOrders";
+
+const connectedState = {
+  ...initialState,
+  connected: true
+};
 
 testWsReducer(
   ordersAllReducer,
@@ -21,8 +26,7 @@ testWsReducer(
     getMessage: wsOrdersAllGetMessage
   },
   {
-    connected: true,
-    orders: [],
+    ...connectedState,
     totalToday: 0,
     total: 0
   }
@@ -36,52 +40,31 @@ testWsReducer(
     closed: wsProfileOrdersClosed,
     getMessage: wsOrdersAllGetMessage
   },
-  {
-    connected: true,
-    orders: []
-  }
+  connectedState
 );
 
 function testWsReducer(reducer, actions, testMessageResult) {
   describe("ws reducer", () => {
     it("should return the initial state", () => {
-      expect(reducer(undefined, {})).toEqual({
-        connected: false,
-        orders: []
-      });
+      expect(reducer(undefined, {})).toEqual(initialState);
     });
 
     it("should handle WS_SUCCESS", () => {
-      expect(
-        reducer({ connected: false, orders: [] }, actions.success())
-      ).toEqual({
-        connected: true,
-        orders: []
-      });
+      expect(reducer(initialState, actions.success())).toEqual(connectedState);
     });
 
     it("should handle WS_ERROR", () => {
-      expect(
-        reducer({ connected: false, orders: [] }, actions.error())
-      ).toEqual({
-        connected: false,
-        orders: []
-      });
+      expect(reducer(connectedState, actions.error())).toEqual(initialState);
     });
 
     it("should handle WS_CLOSED", () => {
-      expect(
-        reducer({ connected: false, orders: [] }, actions.closed())
-      ).toEqual({
-        connected: false,
-        orders: []
-      });
+      expect(reducer(connectedState, actions.closed())).toEqual(initialState);
     });
 
     it("should handle WS_GET_MESSAGE", () => {
       expect(
         reducer(
-          { connected: true, orders: [] },
+          connectedState,
           actions.getMessage(
             JSON.stringify({
               orders: [],

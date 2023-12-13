@@ -3,58 +3,32 @@ import {
   getUserRequest,
   getUserSuccess
 } from "services/actions/user";
-import userReducer from "services/reducers/user";
+import userReducer, { initialState } from "services/reducers/user";
+
+const requestState = {
+  ...initialState,
+  getUserRequest: true
+};
+
+const failedState = {
+  ...initialState,
+  getUserFailed: true
+};
 
 describe("user reducer", () => {
   it("should return the initial state", () => {
-    expect(userReducer(undefined, {})).toEqual({
-      getUserRequest: false,
-      getUserFailed: false
-    });
+    expect(userReducer(undefined, {})).toEqual(initialState);
   });
 
   it("should handle GET_USER_REQUEST", () => {
-    expect(
-      userReducer(
-        {
-          getUserRequest: false,
-          getUserFailed: false
-        },
-        getUserRequest()
-      )
-    ).toEqual({
-      getUserRequest: true,
-      getUserFailed: false
-    });
+    expect(userReducer(initialState, getUserRequest())).toEqual(requestState);
   });
 
   it("should handle GET_USER_SUCCESS", () => {
-    expect(
-      userReducer(
-        {
-          getUserFailed: false,
-          getUserRequest: true
-        },
-        getUserSuccess()
-      )
-    ).toEqual({
-      getUserRequest: false,
-      getUserFailed: false
-    });
+    expect(userReducer(requestState, getUserSuccess())).toEqual(initialState);
   });
 
   it("should handle GET_USER_FAILED", () => {
-    expect(
-      userReducer(
-        {
-          getUserFailed: false,
-          getUserRequest: true
-        },
-        getUserFailed()
-      )
-    ).toEqual({
-      getUserRequest: false,
-      getUserFailed: true
-    });
+    expect(userReducer(requestState, getUserFailed())).toEqual(failedState);
   });
 });

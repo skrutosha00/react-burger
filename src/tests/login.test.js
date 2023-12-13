@@ -3,58 +3,32 @@ import {
   loginRequest,
   loginSuccess
 } from "services/actions/login";
-import loginReducer from "services/reducers/login";
+import loginReducer, { initialState } from "services/reducers/login";
+
+const requestState = {
+  ...initialState,
+  loginRequest: true
+};
+
+const failedState = {
+  ...initialState,
+  loginFailed: true
+};
 
 describe("login reducer", () => {
   it("should return the initial state", () => {
-    expect(loginReducer(undefined, {})).toEqual({
-      loginRequest: false,
-      loginFailed: false
-    });
+    expect(loginReducer(undefined, {})).toEqual(initialState);
   });
 
   it("should handle LOGIN_REQUEST", () => {
-    expect(
-      loginReducer(
-        {
-          loginRequest: false,
-          loginFailed: false
-        },
-        loginRequest()
-      )
-    ).toEqual({
-      loginRequest: true,
-      loginFailed: false
-    });
+    expect(loginReducer(initialState, loginRequest())).toEqual(requestState);
   });
 
   it("should handle LOGIN_SUCCESS", () => {
-    expect(
-      loginReducer(
-        {
-          loginFailed: false,
-          loginRequest: true
-        },
-        loginSuccess()
-      )
-    ).toEqual({
-      loginRequest: false,
-      loginFailed: false
-    });
+    expect(loginReducer(requestState, loginSuccess())).toEqual(initialState);
   });
 
   it("should handle LOGIN_FAILED", () => {
-    expect(
-      loginReducer(
-        {
-          loginFailed: false,
-          loginRequest: true
-        },
-        loginFailed()
-      )
-    ).toEqual({
-      loginRequest: false,
-      loginFailed: true
-    });
+    expect(loginReducer(requestState, loginFailed())).toEqual(failedState);
   });
 });
