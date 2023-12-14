@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
   token: tokenReducer,
   updateUser: updateUserReducer,
   ordersAll: ordersAllReducer,
-  profileOrders: profileOrdersReducer,
+  profileOrders: profileOrdersReducer
 });
 
 export default rootReducer;

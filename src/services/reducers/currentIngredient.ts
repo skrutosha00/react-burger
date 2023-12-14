@@ -2,7 +2,7 @@ import {
   DELETE_CURRENT_INGREDIENT,
   SET_CURRENT_INGREDIENT,
   TDeleteCurrentIngredientAction,
-  TSetCurrentIngredientAction,
+  TSetCurrentIngredientAction
 } from "services/actions/currentIngredient";
 import { TIngredient } from "services/types/appTypes";
 
@@ -21,7 +21,7 @@ export default function currentIngredientReducer(
   switch (action.type) {
     case SET_CURRENT_INGREDIENT: {
       return {
-        ...action.ingredient,
+        ...action.ingredient
       };
     }
     case DELETE_CURRENT_INGREDIENT: {

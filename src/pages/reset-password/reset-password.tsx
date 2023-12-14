@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Button,
+  Input
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { PASSWORD_RESET_URL } from "services/globalVars";
 import styles from "styles/form.module.css";
@@ -8,8 +11,14 @@ import useForm from "hooks/useForm";
 const formFields = ["password", "code"];
 
 export default function ResetPasswordPage() {
-  const { isPasswordVisible, changePasswordVisability, formState, onChange, submitHandler, isSubmitButtonActive } =
-    useForm(formFields);
+  const {
+    isPasswordVisible,
+    changePasswordVisability,
+    formState,
+    onChange,
+    submitHandler,
+    isSubmitButtonActive
+  } = useForm(formFields);
 
   const submitOptions = {
     url: PASSWORD_RESET_URL,
@@ -46,14 +55,22 @@ export default function ResetPasswordPage() {
         extraClass="mb-6"
       />
 
-      <Button htmlType="submit" size="medium" disabled={!isSubmitButtonActive} extraClass={styles.button}>
+      <Button
+        htmlType="submit"
+        size="medium"
+        disabled={!isSubmitButtonActive}
+        extraClass={styles.button}>
         Войти
       </Button>
 
       <div className={`${styles.linkText} text text_type_main-default mb-4`}>
         Вспомнили пароль?{" "}
         <Link to="/login">
-          <Button htmlType="button" type="secondary" size="medium" extraClass={styles.link}>
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="medium"
+            extraClass={styles.link}>
             Войти
           </Button>
         </Link>

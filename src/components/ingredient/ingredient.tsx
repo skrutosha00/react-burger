@@ -1,6 +1,6 @@
 import {
   Counter,
-  CurrencyIcon,
+  CurrencyIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 
@@ -12,11 +12,11 @@ import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import {
   TConstructorIngredient,
   TIngredient,
-  TLocation,
+  TLocation
 } from "services/types/appTypes";
 
 export default function Ingredient({
-  ingredient,
+  ingredient
 }: {
   ingredient: TIngredient;
 }) {
@@ -28,7 +28,7 @@ export default function Ingredient({
 
   const [, ref] = useDrag(() => ({
     type: dragTypes.INGREDIENT,
-    item: ingredient,
+    item: ingredient
   }));
 
   const count = constructorIngredients.filter(

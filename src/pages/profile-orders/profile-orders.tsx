@@ -1,11 +1,10 @@
 import { useEffect } from "react";
-import { nanoid } from "nanoid";
 
 import styles from "./profile-orders.module.css";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import {
   wsProfileOrdersClose,
-  wsProfileOrdersStart,
+  wsProfileOrdersStart
 } from "services/actions/profileOrders";
 import { PROFILE_ORDERS_URL } from "services/globalVars";
 import ProfileSidebar from "components/profile-sidebar/profile-sidebar";
@@ -17,8 +16,11 @@ export default function ProfileOrdersPage() {
   const dispatch = useAppDispatch();
 
   const sortedOrders = [...orders];
-  sortedOrders.sort((a, b) => -(new Date(a.createdAt) - new Date(b.createdAt)));
-  const token = accessToken.replace("Bearer ", "");
+  sortedOrders.sort(
+    (a, b) =>
+      -(new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate())
+  );
+  const token = accessToken?.replace("Bearer ", "");
 
   useEffect(() => {
     dispatch(wsProfileOrdersStart(PROFILE_ORDERS_URL + `?token=${token}`));
@@ -41,7 +43,7 @@ export default function ProfileOrdersPage() {
             order={order}
             toLink={`/profile/orders/${order.number}`}
             extraClass={styles.card}
-            key={nanoid()}
+            key={order._id}
           />
         ))}
       </section>

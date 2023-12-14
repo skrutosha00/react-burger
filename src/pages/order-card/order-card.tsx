@@ -6,7 +6,6 @@ import styles from "./order-card.module.css";
 import { useAppSelector } from "hooks/reduxHooks";
 import { TIngredient, TOrder, TStructureItem } from "services/types/appTypes";
 import { OrderStructureItem } from "components/order-structure-item/order-structure-item";
-import { nanoid } from "nanoid";
 import getCardTimestamp from "utils/getCardTimestamp";
 import fetchJson from "utils/fetchJson";
 import { ORDER_URL } from "services/globalVars";
@@ -24,7 +23,7 @@ type TProps = {
 const statusText = {
   done: "Выполнен",
   pending: "В процессе",
-  created: "Создан",
+  created: "Создан"
 };
 
 function getStructure(order: TOrder, ingredients: TIngredient[]): TStructure {
@@ -44,7 +43,7 @@ function getStructure(order: TOrder, ingredients: TIngredient[]): TStructure {
         name: ingredient.name,
         imageLink: ingredient.image,
         price: ingredient.price,
-        type: ingredient.type,
+        type: ingredient.type
       };
     } else {
       structure[ingredientId].count += 1 * multiplier;
@@ -98,10 +97,10 @@ export default function OrderCardPage({ ordersSource }: TProps) {
 
       <h2 className="text text_type_main-medium mb-6">Состав:</h2>
       <section className={`${styles.ingredients} custom-scroll pr-6 mb-10`}>
-        {Object.keys(structure).map((ingredientId) => (
+        {Object.keys(structure).map((ingredientId, index) => (
           <OrderStructureItem
             structureItem={structure[ingredientId]}
-            key={nanoid()}
+            key={index}
           />
         ))}
       </section>

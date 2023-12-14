@@ -10,7 +10,7 @@ type TProps = {
 
 export default function ProtectedRoute({
   children,
-  anonymousOnly = false,
+  anonymousOnly = false
 }: TProps) {
   const { user } = useAppSelector((store) => store.auth);
   const location: TLocation = useLocation();

@@ -22,20 +22,20 @@ export type TRegisterFailedAction = {
 
 export function registerRequest(): TRegisterRequestAction {
   return {
-    type: REGISTER_REQUEST,
+    type: REGISTER_REQUEST
   };
 }
 
 export function registerSuccess(authData: TAuthData): TRegisterSuccessAction {
   return {
     type: REGISTER_SUCCESS,
-    authData,
+    authData
   };
 }
 
 export function registerFailed(): TRegisterFailedAction {
   return {
-    type: REGISTER_FAILED,
+    type: REGISTER_FAILED
   };
 }
 
@@ -46,9 +46,9 @@ export function register(requestBody: string) {
       const response = await fetchJson(REGISTER_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json;charset=utf-8",
+          "Content-Type": "application/json;charset=utf-8"
         },
-        body: requestBody,
+        body: requestBody
       });
       dispatch(registerSuccess(response));
     } catch (err) {

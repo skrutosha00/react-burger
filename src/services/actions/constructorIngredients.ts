@@ -30,7 +30,7 @@ export function addConstructorIngredient(
 ): TAddConstructorIngredientAction {
   return {
     type: ADD_CONSTRUCTOR_INGREDIENT,
-    ingredient,
+    ingredient
   };
 }
 
@@ -39,7 +39,7 @@ export function deleteConstructorIngredient(
 ): TDeleteConstructorIngredientAction {
   return {
     type: DELETE_CONSTRUCTOR_INGREDIENT,
-    ingredient,
+    ingredient
   };
 }
 
@@ -50,12 +50,12 @@ export function moveConstructorIngredient(
   return {
     type: MOVE_CONSTRUCTOR_INGREDIENT,
     dragIndex,
-    hoverIndex,
+    hoverIndex
   };
 }
 
 export function clearConstructorIngredients(): TClearConstructorIngredientsAction {
   return {
-    type: CLEAR_CONSTRUCTOR_INGREDIENTS,
+    type: CLEAR_CONSTRUCTOR_INGREDIENTS
   };
 }

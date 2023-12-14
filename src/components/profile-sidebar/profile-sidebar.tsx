@@ -11,7 +11,11 @@ type TProps = {
   extraClass: string;
 };
 
-export default function ProfileSidebar({ activeIndex, footerText, extraClass = "" }: TProps) {
+export default function ProfileSidebar({
+  activeIndex,
+  footerText,
+  extraClass = ""
+}: TProps) {
   const dispatch = useAppDispatch();
   const { refreshToken } = useAppSelector((store) => store.auth);
   const { logoutRequest } = useAppSelector((store) => store.logout);
@@ -35,21 +39,35 @@ export default function ProfileSidebar({ activeIndex, footerText, extraClass = "
   return (
     <aside className={`text text_type_main-medium ${extraClass}`}>
       <Link to="/profile">
-        <nav className={`${styles.nav} ${activeIndex === 0 ? "" : "text_color_inactive"}`}>Профиль</nav>
+        <nav
+          className={`${styles.nav} ${
+            activeIndex === 0 ? "" : "text_color_inactive"
+          }`}>
+          Профиль
+        </nav>
       </Link>
       <Link to="/profile/orders">
-        <nav className={`${styles.nav} ${activeIndex === 1 ? "" : "text_color_inactive"}`}>История заказов</nav>
+        <nav
+          className={`${styles.nav} ${
+            activeIndex === 1 ? "" : "text_color_inactive"
+          }`}>
+          История заказов
+        </nav>
       </Link>
 
       <nav
         onClick={onLogoutClick}
         onMouseOver={onLogoutOver}
         onMouseLeave={onLogoutLeave}
-        className={`${styles.nav} ${styles.logout} ${logoutLinkIsHovered ? "" : "text_color_inactive"}`}>
+        className={`${styles.nav} ${styles.logout} ${
+          logoutLinkIsHovered ? "" : "text_color_inactive"
+        }`}>
         Выход
       </nav>
 
-      <p className={`${styles.footerText} text text_type_main-small mt-20`}>{footerText}</p>
+      <p className={`${styles.footerText} text text_type_main-small mt-20`}>
+        {footerText}
+      </p>
     </aside>
   );
 }

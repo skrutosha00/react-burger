@@ -4,7 +4,7 @@ import {
   BurgerIcon,
   ListIcon,
   Logo,
-  ProfileIcon,
+  ProfileIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./app-header.module.css";
@@ -67,5 +67,5 @@ export default function AppHeader() {
 }
 
 AppHeader.propTypes = {
-  activeNav: PropTypes.number,
+  activeNav: PropTypes.number
 };

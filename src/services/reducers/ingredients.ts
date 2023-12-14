@@ -8,7 +8,7 @@ import {
   TGetIngredientsSuccessAction,
   TSwitchTabAction,
   TUpdateSectionVisabilityAction,
-  UPDATE_SECTION_VISABILITY,
+  UPDATE_SECTION_VISABILITY
 } from "services/actions/ingredients";
 import { TIngredient, TIngredientType } from "services/types/appTypes";
 
@@ -27,12 +27,12 @@ export type TIngredientsAction =
   | TUpdateSectionVisabilityAction
   | TSwitchTabAction;
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
   visibleSections: {},
-  currentTab: "bun",
+  currentTab: "bun"
 };
 
 export default function ingredientsReducer(
@@ -44,7 +44,7 @@ export default function ingredientsReducer(
       return {
         ...state,
         ingredientsRequest: true,
-        ingredientsFailed: false,
+        ingredientsFailed: false
       };
     }
     case GET_INGREDIENTS_SUCCESS: {
@@ -52,7 +52,7 @@ export default function ingredientsReducer(
         ...state,
         ingredients: action.ingredients,
         ingredientsRequest: false,
-        ingredientsFailed: false,
+        ingredientsFailed: false
       };
     }
     case GET_INGREDIENTS_FAILED: {
@@ -60,7 +60,7 @@ export default function ingredientsReducer(
         ...state,
         ingredients: [],
         ingredientsRequest: false,
-        ingredientsFailed: true,
+        ingredientsFailed: true
       };
     }
     case UPDATE_SECTION_VISABILITY: {
@@ -68,14 +68,14 @@ export default function ingredientsReducer(
         ...state,
         visibleSections: {
           ...state.visibleSections,
-          [action.ingredientType]: action.intersect,
-        },
+          [action.ingredientType]: action.intersect
+        }
       };
     }
     case SWITCH_TAB: {
       return {
         ...state,
-        currentTab: action.tab,
+        currentTab: action.tab
       };
     }
     default:

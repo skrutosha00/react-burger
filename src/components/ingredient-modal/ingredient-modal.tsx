@@ -5,10 +5,9 @@ import IngredientDetails from "components/ingredient-details/ingredient-details"
 import Modal from "components/modal/modal";
 import {
   deleteCurrentIngredient,
-  setCurrentIngredient,
+  setCurrentIngredient
 } from "services/actions/currentIngredient";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-import { TIngredient } from "services/types/appTypes";
 
 export default function IngredientModal() {
   const dispatch = useAppDispatch();

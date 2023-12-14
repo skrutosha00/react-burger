@@ -4,11 +4,11 @@ import {
   FocusEvent,
   MouseEvent,
   ChangeEvent,
-  FormEventHandler,
+  FormEventHandler
 } from "react";
 import {
   Input,
-  Button,
+  Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./profile.module.css";
@@ -42,7 +42,7 @@ export default function ProfilePage() {
   const initialFormState: TForm = {
     name: { value: user!.name, isActive: false },
     email: { value: user!.email, isActive: false },
-    password: { value: "", isActive: false },
+    password: { value: "", isActive: false }
   };
   const [formState, setFormState] = useState<TForm>(initialFormState);
 
@@ -72,8 +72,8 @@ export default function ProfilePage() {
       ...formState,
       [inputElem.name]: {
         ...formState[inputElem.name as keyof TForm],
-        isActive: true,
-      },
+        isActive: true
+      }
     });
 
     setTimeout(() => {
@@ -88,8 +88,8 @@ export default function ProfilePage() {
       ...formState,
       [inputElem.name]: {
         ...formState[inputElem.name as keyof TForm],
-        isActive: false,
-      },
+        isActive: false
+      }
     });
   }
 
@@ -100,8 +100,8 @@ export default function ProfilePage() {
       ...formState,
       [inputElem.name]: {
         ...formState[inputElem.name as keyof TForm],
-        value: inputElem.value,
-      },
+        value: inputElem.value
+      }
     });
   }
 
@@ -115,7 +115,7 @@ export default function ProfilePage() {
         JSON.stringify({
           name: formState.name.value,
           email: formState.email.value,
-          password: formState.password.value,
+          password: formState.password.value
         })
       )
     );

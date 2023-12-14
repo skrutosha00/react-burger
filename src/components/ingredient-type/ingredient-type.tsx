@@ -9,7 +9,7 @@ import { TIngredient, TIngredientType } from "services/types/appTypes";
 const titles = {
   bun: "Булки",
   sauce: "Соусы",
-  main: "Начинки",
+  main: "Начинки"
 };
 
 export default function IngredientType({ type }: { type: TIngredientType }) {
@@ -25,7 +25,7 @@ export default function IngredientType({ type }: { type: TIngredientType }) {
     threshold: 0.1,
     onChange: (inView) => {
       dispatch(updateSectionVisability(type, inView));
-    },
+    }
   });
 
   return (

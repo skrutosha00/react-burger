@@ -4,7 +4,7 @@ import {
   GET_ORDER_SUCCESS,
   TGetOrderFailedAction,
   TGetOrderRequestAction,
-  TGetOrderSuccessAction,
+  TGetOrderSuccessAction
 } from "services/actions/order";
 
 type TOrderState = {
@@ -18,10 +18,10 @@ export type TOrderAction =
   | TGetOrderFailedAction
   | TGetOrderRequestAction;
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   orderNumber: null,
   orderRequest: false,
-  orderFailed: false,
+  orderFailed: false
 };
 
 export default function orderReducer(
@@ -34,14 +34,14 @@ export default function orderReducer(
         ...state,
         orderNumber: null,
         orderRequest: true,
-        orderFailed: false,
+        orderFailed: false
       };
     }
     case GET_ORDER_SUCCESS: {
       return {
         ...state,
         orderRequest: false,
-        orderNumber: action.number,
+        orderNumber: action.number
       };
     }
     case GET_ORDER_FAILED: {
@@ -49,7 +49,7 @@ export default function orderReducer(
         ...state,
         orderNumber: null,
         orderRequest: false,
-        orderFailed: true,
+        orderFailed: true
       };
     }
     default:

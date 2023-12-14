@@ -4,7 +4,7 @@ import {
   GET_USER_SUCCESS,
   TGetUserFailedAction,
   TGetUserRequestAction,
-  TGetUserSuccessAction,
+  TGetUserSuccessAction
 } from "services/actions/user";
 
 type TUserState = {
@@ -17,9 +17,9 @@ export type TUserAction =
   | TGetUserRequestAction
   | TGetUserFailedAction;
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   getUserRequest: false,
-  getUserFailed: false,
+  getUserFailed: false
 };
 
 export default function userReducer(
@@ -30,19 +30,19 @@ export default function userReducer(
     case GET_USER_REQUEST: {
       return {
         getUserFailed: false,
-        getUserRequest: true,
+        getUserRequest: true
       };
     }
     case GET_USER_SUCCESS: {
       return {
         getUserFailed: false,
-        getUserRequest: false,
+        getUserRequest: false
       };
     }
     case GET_USER_FAILED: {
       return {
         getUserFailed: true,
-        getUserRequest: false,
+        getUserRequest: false
       };
     }
     default: {

@@ -1,7 +1,6 @@
-import { TOrder } from "services/types/appTypes";
 import styles from "./order-numbers.module.css";
+import { TOrder } from "services/types/appTypes";
 import { useAppSelector } from "hooks/reduxHooks";
-import { nanoid } from "nanoid";
 
 function getOrders(orders: TOrder[]) {
   const readyOrders: string[] = [];
@@ -36,7 +35,7 @@ export default function OrderNumbers() {
             {readyOrders.map((orderNumber) => (
               <span
                 className={`${styles.readyNumber} text text_type_digits-default`}
-                key={nanoid()}>
+                key={orderNumber}>
                 {orderNumber}
               </span>
             ))}
@@ -50,7 +49,9 @@ export default function OrderNumbers() {
           </h3>
           <div className={styles.numbers}>
             {inProcessOrders.map((orderNumber) => (
-              <span className={`text text_type_digits-default`} key={nanoid()}>
+              <span
+                className={`text text_type_digits-default`}
+                key={orderNumber}>
                 {orderNumber}
               </span>
             ))}

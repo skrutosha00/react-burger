@@ -7,7 +7,7 @@ import {
   WS_ORDERS_ALL_GET_MESSAGE,
   WS_ORDERS_ALL_SEND,
   WS_ORDERS_ALL_START,
-  WS_ORDERS_ALL_SUCCESS,
+  WS_ORDERS_ALL_SUCCESS
 } from "services/actions/ordersAll";
 import {
   TWsProfileOrdersAction,
@@ -17,8 +17,9 @@ import {
   WS_PROFILE_ORDERS_GET_MESSAGE,
   WS_PROFILE_ORDERS_SEND,
   WS_PROFILE_ORDERS_START,
-  WS_PROFILE_ORDERS_SUCCESS,
+  WS_PROFILE_ORDERS_SUCCESS
 } from "services/actions/profileOrders";
+import { getToken } from "services/actions/token";
 import { AppDispatch, RootState } from "services/types/reduxTypes";
 
 type TWsActions = {
@@ -40,23 +41,37 @@ type TWsAction = TWsOrderAllAction | TWsProfileOrdersAction;
 export const socketMiddleware = (actions: TWsActions): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
+    let connected = false;
     let url: string;
 
     return (next) => (action: TWsAction) => {
-      const { dispatch } = store;
+      const { dispatch, getState } = store;
       const { type } = action;
 
       if (type === actions.startAction) {
         url = action.url;
         socket = new WebSocket(url);
+        connected = true;
       }
 
       if (type === actions.closeAction) {
         socket?.close();
+        connected = false;
+      }
+
+      if (type === actions.errorAction && connected) {
+        getToken(
+          JSON.stringify({
+            token: getState().auth.refreshToken
+          })
+        )(dispatch).then(() => {
+          socket = new WebSocket(url);
+        });
       }
 
       if (socket) {
         socket.onopen = (event) => {
+          connected = true;
           dispatch({ type: actions.successAction, payload: event });
         };
 
@@ -66,15 +81,18 @@ export const socketMiddleware = (actions: TWsActions): Middleware => {
 
         socket.onmessage = (event) => {
           const { data } = event;
-          dispatch({ type: actions.messageAction, payload: data });
+          const { success, message } = JSON.parse(data);
+
+          if (success) {
+            dispatch({ type: actions.messageAction, payload: data });
+          } else if (message === "Invalid or missing token" && connected) {
+            dispatch({ type: actions.errorAction, payload: event });
+          }
         };
 
         socket.onclose = (event) => {
+          connected = false;
           dispatch({ type: actions.closedAction, payload: event });
-
-          setTimeout(() => {
-            dispatch({ type: actions.startAction, url });
-          }, 2000);
         };
 
         if (type === actions.sendAction) {

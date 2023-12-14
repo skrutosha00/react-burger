@@ -4,7 +4,7 @@ import {
   LOGIN_SUCCESS,
   TLoginFailedAction,
   TLoginRequestAction,
-  TLoginSuccessAction,
+  TLoginSuccessAction
 } from "services/actions/login";
 
 type TLoginState = {
@@ -17,9 +17,9 @@ export type TLoginAction =
   | TLoginSuccessAction
   | TLoginFailedAction;
 
-const initialState: TLoginState = {
+export const initialState: TLoginState = {
   loginRequest: false,
-  loginFailed: false,
+  loginFailed: false
 };
 
 export default function loginReducer(
@@ -30,19 +30,19 @@ export default function loginReducer(
     case LOGIN_REQUEST: {
       return {
         loginFailed: false,
-        loginRequest: true,
+        loginRequest: true
       };
     }
     case LOGIN_SUCCESS: {
       return {
         loginFailed: false,
-        loginRequest: false,
+        loginRequest: false
       };
     }
     case LOGIN_FAILED: {
       return {
         loginFailed: true,
-        loginRequest: false,
+        loginRequest: false
       };
     }
     default: {

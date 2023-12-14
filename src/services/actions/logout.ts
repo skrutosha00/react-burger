@@ -20,19 +20,19 @@ export type TLogoutFailedAction = {
 
 export function logoutRequest(): TLogoutRequestAction {
   return {
-    type: LOGOUT_REQUEST,
+    type: LOGOUT_REQUEST
   };
 }
 
 export function logoutSuccess(): TLogoutSuccessAction {
   return {
-    type: LOGOUT_SUCCESS,
+    type: LOGOUT_SUCCESS
   };
 }
 
 export function logoutFailed(): TLogoutFailedAction {
   return {
-    type: LOGOUT_FAILED,
+    type: LOGOUT_FAILED
   };
 }
 
@@ -43,9 +43,9 @@ export function logout(requestBody: string) {
       await fetchJson(LOGOUT_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json;charset=utf-8",
+          "Content-Type": "application/json;charset=utf-8"
         },
-        body: requestBody,
+        body: requestBody
       });
       dispatch(logoutSuccess());
     } catch (err) {

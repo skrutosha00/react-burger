@@ -6,7 +6,7 @@ import { TIngredientType } from "services/types/appTypes";
 
 export default function BurgerIngredients() {
   return (
-    <section>
+    <section cy-test={"BurgerIngredients"}>
       <h2 className={`${styles.title} text text_type_main-large mt-10 mb-5`}>
         Соберите бургер
       </h2>

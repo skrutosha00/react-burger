@@ -22,7 +22,7 @@ export type TUpdateUserFailedAction = {
 
 export function updateUserRequest(): TUpdateUserRequestAction {
   return {
-    type: UPDATE_USER_REQUEST,
+    type: UPDATE_USER_REQUEST
   };
 }
 
@@ -31,13 +31,13 @@ export function updateUserSuccess(
 ): TUpdateUserSuccessAction {
   return {
     type: UPDATE_USER_SUCCESS,
-    authData,
+    authData
   };
 }
 
 export function updateUserFailed(): TUpdateUserFailedAction {
   return {
-    type: UPDATE_USER_FAILED,
+    type: UPDATE_USER_FAILED
   };
 }
 
@@ -49,9 +49,9 @@ export function updateUser(requestBody: string) {
         method: "PATCH",
         headers: {
           authorization: localStorage.getItem("accessToken"),
-          "Content-Type": "application/json;charset=utf-8",
+          "Content-Type": "application/json;charset=utf-8"
         },
-        body: requestBody,
+        body: requestBody
       });
       dispatch(updateUserSuccess(response));
     } catch (err) {

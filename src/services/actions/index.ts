@@ -6,6 +6,6 @@ export type TInitAction = {
 
 export function init(): TInitAction {
   return {
-    type: INIT,
+    type: INIT
   };
 }

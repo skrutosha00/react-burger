@@ -52,7 +52,7 @@ export type TWsProfileOrdersAction =
 export function wsProfileOrdersStart(url: string): TWsProfileOrdersStartAction {
   return {
     type: WS_PROFILE_ORDERS_START,
-    url,
+    url
   };
 }
 
@@ -61,7 +61,7 @@ export function wsProfileOrdersSuccess(
 ): TWsProfileOrdersSuccessAction {
   return {
     type: WS_PROFILE_ORDERS_SUCCESS,
-    payload,
+    payload
   };
 }
 
@@ -70,7 +70,7 @@ export function wsProfileOrdersError(
 ): TWsProfileOrdersErrorAction {
   return {
     type: WS_PROFILE_ORDERS_ERROR,
-    payload,
+    payload
   };
 }
 
@@ -79,7 +79,7 @@ export function wsProfileOrdersGetMessage(
 ): TWsProfileOrdersGetMessageAction {
   return {
     type: WS_PROFILE_ORDERS_GET_MESSAGE,
-    payload,
+    payload
   };
 }
 
@@ -88,12 +88,12 @@ export function wsProfileOrdersClosed(
 ): TWsProfileOrdersClosedAction {
   return {
     type: WS_PROFILE_ORDERS_CLOSED,
-    payload,
+    payload
   };
 }
 
 export function wsProfileOrdersClose(): TWsProfileOrdersCloseAction {
   return {
-    type: WS_PROFILE_ORDERS_CLOSE,
+    type: WS_PROFILE_ORDERS_CLOSE
   };
 }

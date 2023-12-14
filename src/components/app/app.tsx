@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import { TLocation, TLocationState } from "services/types/appTypes";
-import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
+import { useAppDispatch } from "hooks/reduxHooks";
 import { init } from "services/actions";
 import { getIngredients } from "services/actions/ingredients";
 import useAutoLogin from "hooks/useAutoLogin";

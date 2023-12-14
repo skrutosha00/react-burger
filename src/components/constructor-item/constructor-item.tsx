@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import {
   ConstructorElement,
-  DragIcon,
+  DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 
@@ -9,7 +9,7 @@ import { useAppDispatch } from "hooks/reduxHooks";
 import styles from "./constructor-item.module.css";
 import {
   deleteConstructorIngredient,
-  moveConstructorIngredient,
+  moveConstructorIngredient
 } from "services/actions/constructorIngredients";
 import { dragTypes } from "services/globalVars";
 import { TConstructorIngredient } from "services/types/appTypes";
@@ -25,7 +25,7 @@ export default function ConstructorItem({
   ingredient,
   type,
   isLocked,
-  index,
+  index
 }: TProps) {
   const ref = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
@@ -72,7 +72,7 @@ export default function ConstructorItem({
 
       dispatch(moveConstructorIngredient(dragIndex, hoverIndex));
       item.index = hoverIndex;
-    },
+    }
   });
   const [{ isDragging }, drag] = useDrag({
     type: ingredient.type === "bun" ? "" : dragTypes.CONSTRUCTOR_INGREDIENT,
@@ -80,12 +80,12 @@ export default function ConstructorItem({
       return { id: ingredient.uid, index };
     },
     collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
+      isDragging: monitor.isDragging()
+    })
   });
 
   const style = {
-    opacity: isDragging ? "0" : "1",
+    opacity: isDragging ? "0" : "1"
   };
   drag(drop(ref));
 

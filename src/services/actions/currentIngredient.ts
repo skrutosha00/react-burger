@@ -17,7 +17,7 @@ export function setCurrentIngredient(
 ): TSetCurrentIngredientAction {
   return {
     type: SET_CURRENT_INGREDIENT,
-    ingredient,
+    ingredient
   };
 }
 

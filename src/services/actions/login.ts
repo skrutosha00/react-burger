@@ -22,20 +22,20 @@ export type TLoginFailedAction = {
 
 export function loginRequest(): TLoginRequestAction {
   return {
-    type: LOGIN_REQUEST,
+    type: LOGIN_REQUEST
   };
 }
 
 export function loginSuccess(authData: TAuthData): TLoginSuccessAction {
   return {
     type: LOGIN_SUCCESS,
-    authData,
+    authData
   };
 }
 
 export function loginFailed(): TLoginFailedAction {
   return {
-    type: LOGIN_FAILED,
+    type: LOGIN_FAILED
   };
 }
 
@@ -46,9 +46,9 @@ export function login(requestBody: string) {
       const response = await fetchJson(LOGIN_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json;charset=utf-8",
+          "Content-Type": "application/json;charset=utf-8"
         },
-        body: requestBody,
+        body: requestBody
       });
       dispatch(loginSuccess(response));
     } catch (err) {

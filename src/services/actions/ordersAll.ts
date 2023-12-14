@@ -52,21 +52,21 @@ export type TWsOrderAllAction =
 export function wsOrdersAllStart(url: string): TWsOrdersAllStartAction {
   return {
     type: WS_ORDERS_ALL_START,
-    url,
+    url
   };
 }
 
 export function wsOrdersAllSuccess(payload: Event): TWsOrdersAllSuccessAction {
   return {
     type: WS_ORDERS_ALL_SUCCESS,
-    payload,
+    payload
   };
 }
 
 export function wsOrdersAllError(payload: Event): TWsOrdersAllErrorAction {
   return {
     type: WS_ORDERS_ALL_ERROR,
-    payload,
+    payload
   };
 }
 
@@ -75,19 +75,19 @@ export function wsOrdersAllGetMessage(
 ): TWsOrdersAllGetMessageAction {
   return {
     type: WS_ORDERS_ALL_GET_MESSAGE,
-    payload,
+    payload
   };
 }
 
 export function wsOrdersAllClosed(payload: Event): TWsOrdersAllClosedAction {
   return {
     type: WS_ORDERS_ALL_CLOSED,
-    payload,
+    payload
   };
 }
 
 export function wsOrdersAllClose(): TWsOrdersAllCloseAction {
   return {
-    type: WS_ORDERS_ALL_CLOSE,
+    type: WS_ORDERS_ALL_CLOSE
   };
 }

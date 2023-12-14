@@ -20,7 +20,9 @@ export default function useForm(formFields: string[]) {
   );
   const navigate = useNavigate();
 
-  const isFormCompleted = Object.values(formState).every((value) => value !== "");
+  const isFormCompleted = Object.values(formState).every(
+    (value) => value !== ""
+  );
   const isSubmitButtonActive = isFormCompleted && !isFormPending;
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {

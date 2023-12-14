@@ -3,12 +3,12 @@ import { LOGIN_SUCCESS, TLoginSuccessAction } from "services/actions/login";
 import { LOGOUT_SUCCESS, TLogoutSuccessAction } from "services/actions/logout";
 import {
   REGISTER_SUCCESS,
-  TRegisterSuccessAction,
+  TRegisterSuccessAction
 } from "services/actions/register";
 import { TOKEN_SUCCESS, TTokenSuccessAction } from "services/actions/token";
 import {
   TUpdateUserSuccessAction,
-  UPDATE_USER_SUCCESS,
+  UPDATE_USER_SUCCESS
 } from "services/actions/updateUser";
 import { GET_USER_SUCCESS, TGetUserSuccessAction } from "services/actions/user";
 import { TUser } from "services/types/reduxTypes";
@@ -28,10 +28,10 @@ export type TAuthAction =
   | TGetUserSuccessAction
   | TTokenSuccessAction;
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
   user: null,
   refreshToken: null,
-  accessToken: null,
+  accessToken: null
 };
 
 export default function authReducer(
@@ -43,7 +43,7 @@ export default function authReducer(
       return {
         ...state,
         accessToken: localStorage.getItem("accessToken"),
-        refreshToken: localStorage.getItem("refreshToken"),
+        refreshToken: localStorage.getItem("refreshToken")
       };
     }
     case LOGIN_SUCCESS: {
@@ -52,7 +52,7 @@ export default function authReducer(
 
       return {
         ...state,
-        ...action.authData,
+        ...action.authData
       };
     }
     case REGISTER_SUCCESS: {
@@ -61,7 +61,7 @@ export default function authReducer(
 
       return {
         ...state,
-        ...action.authData,
+        ...action.authData
       };
     }
     case GET_USER_SUCCESS: {
@@ -69,7 +69,7 @@ export default function authReducer(
         ...state,
         user: action.authData.user,
         accessToken: localStorage.getItem("accessToken"),
-        refreshToken: localStorage.getItem("refreshToken"),
+        refreshToken: localStorage.getItem("refreshToken")
       };
     }
     case LOGOUT_SUCCESS: {
@@ -84,13 +84,13 @@ export default function authReducer(
 
       return {
         ...state,
-        ...action.newTokens,
+        ...action.newTokens
       };
     }
     case UPDATE_USER_SUCCESS: {
       return {
         ...state,
-        user: action.authData.user,
+        user: action.authData.user
       };
     }
     default: {

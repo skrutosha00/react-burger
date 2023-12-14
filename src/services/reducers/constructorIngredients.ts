@@ -6,7 +6,7 @@ import {
   TAddConstructorIngredientAction,
   TClearConstructorIngredientsAction,
   TDeleteConstructorIngredientAction,
-  TMoveConstructorIngredientAction,
+  TMoveConstructorIngredientAction
 } from "services/actions/constructorIngredients";
 import { TConstructorIngredient } from "services/types/appTypes";
 
@@ -27,10 +27,10 @@ export default function constructorIngredientsReducer(
   switch (action.type) {
     case ADD_CONSTRUCTOR_INGREDIENT: {
       const bunPart = [
-        ...state.filter((ingredient) => ingredient.type === "bun"),
+        ...state.filter((ingredient) => ingredient.type === "bun")
       ];
       const sortablePart = [
-        ...state.filter((ingredient) => ingredient.type !== "bun"),
+        ...state.filter((ingredient) => ingredient.type !== "bun")
       ];
 
       if (action.ingredient.type === "bun") {
